@@ -71,8 +71,8 @@ const tabs = [
   },
   {
     name:'자산',
-    link:'/asset'
-  }
+    link:'/info'
+  },
 ];
 
 const Header = ({ user, onChangeNavTab, navTab }) => {
@@ -100,9 +100,15 @@ const Header = ({ user, onChangeNavTab, navTab }) => {
                       >
                         {tab.name}
                       </div>
-
                     </Link>
 									))}
+                  <div
+                    onClick={() => {
+                      window.open('/charge', '충전','width=430,height=500,location=no,status=no,scrollbars=yes')
+                    }}
+                  >
+                    충전
+                  </div>
 								</div>
 							)}
 						</div>

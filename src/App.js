@@ -1,15 +1,16 @@
-import './App.css';
-import {HomePage, UserListPage, EntryPage, JournalPage, StatisticsPage} from './pages/index';
+import { HomePage, UserListPage, EntryPage, JournalPage, StatisticsPage, InfoPage, ChargePage } from './pages/index';
 import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
+        <Route exact path="/" element={<HomePage/>}/>
+        <Route exact path="/charge" element={<ChargePage />}/>
         <Route exact path="/users" element={<UserListPage/>} />
         <Route exact path="/entry" element={<EntryPage/>}/>
         <Route exact path="/journal" element={<JournalPage/>}/>
         <Route exact path="/statistics" element={<StatisticsPage/>}/>
+        <Route exact path="/info" element={<InfoPage/>}/>
       </Routes>
     </>
   );

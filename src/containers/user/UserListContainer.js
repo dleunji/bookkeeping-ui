@@ -29,12 +29,12 @@ const UserListContainer = () => {
 		dispatch(changeTab(0));
 	};
 
-	const onDelete = (userId) => {
+	const onDelete = async (userId) => {
 		if (user != null && userId === user.userId) {
 			dispatch(changeUser(null));
 		}
 		try {
-			fetch(`${USER_BASE_URL}${userId}`, {
+			await fetch(`${USER_BASE_URL}${userId}`, {
 				method: 'DELETE',
 			}).then((res) => {
 				// HTTP Status 204 No Content
@@ -58,10 +58,10 @@ const UserListContainer = () => {
 		setOpen(false);
 	};
 
-	const saveClose = () => {
+	const saveClose = async () => {
 		const { userFirstName, userLastName } = newUser;
 		try {
-			fetch(USER_BASE_URL, {
+			await fetch(USER_BASE_URL, {
 				method: 'POST',
 				body: JSON.stringify({
 					userFirstName,
@@ -104,9 +104,9 @@ const UserListContainer = () => {
 		);
 	};
 
-	const fetchUserList = useCallback(() => {
+	const fetchUserList = useCallback(async () => {
 		try {
-			fetch(USER_BASE_URL)
+			await fetch(USER_BASE_URL)
 				.then((res) => {
 					return res.json();
 				})

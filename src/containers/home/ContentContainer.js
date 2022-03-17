@@ -99,7 +99,7 @@ const ContentContainer = () => {
 		dispatch(createEntry({ name, value }));
 	};
 
-	const handleCreateJournal = () => {
+	const handleCreateJournal = async () => {
 		const { entryDate, entrySummary, debtors, creditors } = entry;
 		const { userId, accBalance, unpaidBill, pocketBalance } = user;
 
@@ -120,7 +120,7 @@ const ContentContainer = () => {
 		// totalAmount 수정
 		dispatch(changeEntry('totalAmount', debtorsAmount));
 		try {
-			fetch(JOURNAL_BASE_URL, {
+			await fetch(JOURNAL_BASE_URL, {
 				method: 'POST',
 				body: JSON.stringify({
 					userId,

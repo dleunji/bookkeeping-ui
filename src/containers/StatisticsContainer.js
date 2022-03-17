@@ -14,13 +14,13 @@ const StatisticsContainer = () => {
 	);
   
   const dispatch = useDispatch();
-	const getStatistics = () => {
+	const getStatistics = async () => {
 		if (user) {
 			const { userId } = user;
 			const year = getYear(statistics.month);
 			const month = getMonth(statistics.month) + 1;
 			try {
-				fetch(ELEMENT_BASE_URL + `${userId}/${year}/${month}`)
+				await fetch(ELEMENT_BASE_URL + `${userId}/${year}/${month}`)
 					.then((res) => {
 						if (res.ok) {
 							return res.json();
@@ -54,7 +54,7 @@ const StatisticsContainer = () => {
 	useEffect(() => {
 		dispatch(changeMonth(new Date()));
 	}, [statistics.tab]);
-  
+
   return (
     <MainStatistics
       statistics={statistics}

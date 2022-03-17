@@ -16,6 +16,7 @@ import {
 import { changeUserInfo } from "../modules/auth";
 import { changeNavTab } from "../modules/home";
 import MainEntry from "../components/entry/MainEntry";
+
 const JOURNAL_BASE_URL = 'api/Journals/';
 
 const EntryContainer = () => {

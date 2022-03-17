@@ -32,9 +32,9 @@ const JournalContainer = () => {
 		dispatch(changeJournalDate(date));
 	};
 
-	const handleDeleteJournal = (journalId) => {
+	const handleDeleteJournal = async (journalId) => {
 		try {
-			fetch(JOURNAL_BASE_URL + journalId, {
+			await fetch(JOURNAL_BASE_URL + journalId, {
 				method: 'DELETE',
 			})
 				.then((res) => {
@@ -62,10 +62,10 @@ const JournalContainer = () => {
 		}
 	};
 
-	const getLatestJournals = () => {
+	const getLatestJournals = async () => {
 		if (user) {
 			try {
-				fetch(JOURNAL_BASE_URL + `latest/${user.userId}/${journal.currentPage}`)
+				await fetch(JOURNAL_BASE_URL + `latest/${user.userId}/${journal.currentPage}`)
 					.then((res) => {
 						if (res.ok) {
 							return res.json();
