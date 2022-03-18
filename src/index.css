@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
 }
 
 code {
@@ -20,6 +21,26 @@ code {
 @font-face {
   font-family: 'Noto Sans Serif KR';
   font-style: normal;
-  src: url('./fonts/NotoSerifKR-SemiBold.otf'),
-  url('./fonts/NotoSerifKR-Regular.otf')
+  src: url('./fonts/NotoSerifKR-SemiBold.otf');
 }
+
+@font-face {
+  font-family: 'Lexend';
+  font-weight: 800;
+  src: url('./fonts/AppleSDGothicNeoM.ttf');
+}
+
+@font-face {
+  font-family: 'Lexend';
+  font-weight: 800;
+  src: url('./fonts/Lexend-VariableFont_wght.ttf');
+  unicode-range: U+0020-007E;
+}
+
+@font-face {
+  font-family: 'AppleSDGothicNeoM';
+  src: url('./fonts/AppleSDGothicNeoM.ttf');
+}
+
+
+

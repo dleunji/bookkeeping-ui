@@ -1,4 +1,13 @@
-import { HomePage, UserListPage, EntryPage, JournalPage, StatisticsPage, InfoPage, ChargePage } from './pages/index';
+import { HomePage,
+  UserListPage,
+  EntryPage,
+  JournalPage,
+  StatisticsPage,
+  InfoPage,
+  ChargePage,
+  CardPage,
+  TermPage
+} from './pages/index';
 import { Routes, Route } from 'react-router-dom';
 function App() {
   return (
@@ -11,6 +20,8 @@ function App() {
         <Route exact path="/journal" element={<JournalPage/>}/>
         <Route exact path="/statistics" element={<StatisticsPage/>}/>
         <Route exact path="/info" element={<InfoPage/>}/>
+        <Route exact path="/card" element={<CardPage/>}/>
+        <Route exact path="/term" element={<TermPage/>}/>
       </Routes>
     </>
   );

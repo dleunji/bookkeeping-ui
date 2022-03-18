@@ -1,8 +1,8 @@
+import MainCharge from "../components/charge/MainCharge";
+import ChargeContainer from "../containers/charge/ChargeContainer";
 const ChargePage = () => {
   return (
-    <>
-    충전
-    </>
+    <ChargeContainer/>
   );
 }
 

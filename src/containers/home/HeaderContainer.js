@@ -4,7 +4,7 @@ import { changeNavTab } from '../../modules/home';
 import { useSelector, useDispatch } from 'react-redux';
 import { initEntry } from '../../modules/entry';
 
-const HomeContainer = () => {
+const HeaderContainer = () => {
 	const { user, navTab } = useSelector(({ auth, home }) => ({
 		user: auth.currentUser,
 		navTab: home.activeNavTab,
@@ -19,8 +19,12 @@ const HomeContainer = () => {
 
 	return (
 		<div>
-			<Header user={user} onChangeNavTab={onChangeNavTab} navTab={navTab} />
+			<Header
+        user={user}
+        onChangeNavTab={onChangeNavTab}
+        navTab={navTab}
+      />
 		</div>
 	);
 };
-export default HomeContainer;
+export default HeaderContainer;

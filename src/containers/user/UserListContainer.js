@@ -95,7 +95,6 @@ const UserListContainer = () => {
 
 	const handleTextField = (e) => {
 		const { name, value } = e.target;
-		console.log(name, value);
 		dispatch(
 			changeField({
 				name,
@@ -120,9 +119,10 @@ const UserListContainer = () => {
 		}
 	});
 
-	useEffect(() => {
-		fetchUserList();
-	}, []);
+	// useEffect(() => {
+	// 	fetchUserList();
+	// }, []);
+  
 
 	return (
 		<UserList

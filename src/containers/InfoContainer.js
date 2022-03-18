@@ -1,5 +1,4 @@
-import { useDispatch, useSelector} from "react-redux";
-import { useEffect } from "react";
+import { useSelector} from "react-redux";
 import MainInfo from "../components/info/MainInfo";
 const InfoContainer = () => {
   const { user } = useSelector(({ auth }) => ({

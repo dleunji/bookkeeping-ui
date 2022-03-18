@@ -4,12 +4,14 @@ import home from './home';
 import entry from './entry';
 import journal from './journal';
 import statistics from './statistics';
+import charge from './charge';
 const rootReducer = combineReducers({
 	home,
 	auth,
 	entry,
 	journal,
-  statistics
+  statistics,
+  charge
 });
 
 export default rootReducer;

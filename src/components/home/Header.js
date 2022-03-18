@@ -104,7 +104,12 @@ const Header = ({ user, onChangeNavTab, navTab }) => {
 									))}
                   <div
                     onClick={() => {
-                      window.open('/charge', '충전','width=430,height=500,location=no,status=no,scrollbars=yes')
+                      window.open('/charge', '충전','width=530,height=770,location=no,status=no,scrollbars=yes');
+                      // 팝업창에서 사용해야하는 데이터 전달
+                      // 일정 기간 충전하지 않으면 자동으로 만료되도록 sessionStorage 사용
+                      sessionStorage.setItem("userId", user.userId);
+                      sessionStorage.setItem("prevBalance", user.balance);
+
                     }}
                   >
                     충전

@@ -1,11 +1,11 @@
 import HeaderContainer from '../containers/home/HeaderContainer';
-import ContentContainer from '../containers/home/ContentContainer';
+import HomeContainer from '../containers/home/HomeContainer';
 
 const HomePage = () => {
   return (
     <div>
       <HeaderContainer />
-      <ContentContainer />
+      <HomeContainer />
     </div>
   );
 };

@@ -24,7 +24,15 @@ export const changeUserInfo = createAction(CHANGE_USER_INFO,
   ({pocketBalance, accBalance, unpaidBill}) => ({pocketBalance, accBalance, unpaidBill}));
 
 const initialState = {
-	userList: [],
+	userList: [
+    // mock
+    {
+      userFirstName: '은지',
+      userLastName: '이',
+      userId: 1,
+      balance: 3000,
+    }
+  ],
 	currentUser: null,
 	newUser: {
 		// SQL INSERT 이후 확정
