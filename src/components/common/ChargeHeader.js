@@ -11,6 +11,12 @@ const ChargeHeaderBlock = styled.div`
   padding: 35px 0px 35px;
   .nexto {
     width: 460px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 45px;
+      margin-right: 5px;
+    }
   }
 
 `;
@@ -18,7 +24,8 @@ const ChargeHeader = () => {
   return (
     <ChargeHeaderBlock size="36px">
       <div className="nexto">
-        넥토충전
+        <img src={`${process.env.PUBLIC_URL}/images/capital_3d.png`}/>
+        <span>넥토 충전</span>
       </div>
     </ChargeHeaderBlock>
   )
