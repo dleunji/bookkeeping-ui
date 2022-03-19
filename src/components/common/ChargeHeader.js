@@ -8,7 +8,7 @@ const ChargeHeaderBlock = styled.div`
   font-size: ${props => props.size || "24px"};
   display: flex;
   justify-content: center;
-  padding: 35px 0px 35px;
+  padding: 15px 0px 15px 0px;
   .nexto {
     width: 460px;
     display: flex;

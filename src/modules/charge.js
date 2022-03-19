@@ -4,20 +4,20 @@ import { createAction, handleActions } from 'redux-actions';
 const INITIAILIZE_CHARGE = 'charge/INITIAILIZE_CHARGE';
 const CHANGE_AMOUNT = 'charge/CHANGE_AMOUNT';
 const CHANGE_INPUT = 'charge/CHANGE_INPUT';
-const CHANGE_ANCHOR = 'charge/CHANGE_ANCHOR';
+const CHANGE_CHECK = 'charge/CHANGE_C';
 
 // 상태 변경하는 액션 생성
 export const initializeCharge = createAction(INITIAILIZE_CHARGE, ({prevBalance}) => ({prevBalance}));
 export const changeAmount = createAction(CHANGE_AMOUNT, amount => amount);
 export const changeInput = createAction(CHANGE_INPUT, ({name, value}) => ({name, value}));
-export const changeAnchor = createAction(CHANGE_ANCHOR, status => status);
+export const changeCheck = createAction(CHANGE_CHECK);
 
 // redux 초기 상태 설정
 const initialState = {
   prevBalance: 0,
   userId: null,
   totalAmount: '',
-  anchorEl: null,
+  checked: false,
 };
 
 const charge = handleActions(
@@ -35,9 +35,9 @@ const charge = handleActions(
       ...state,
       [name]: value
     }),
-    [CHANGE_ANCHOR]: (state, {payload: status}) => ({
+    [CHANGE_CHECK]: (state) => ({
       ...state,
-      anchorEl: status
+      checked: !state.checked
     })
   }, initialState
 )

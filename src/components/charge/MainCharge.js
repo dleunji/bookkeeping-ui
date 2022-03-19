@@ -4,9 +4,12 @@ import GradientBox from "../common/GradientBox";
 import { Box } from "@mui/material/index";
 import AmountInput from "./AmountInput";
 import AmountSelect from "./AmountSelect";
-import MethodSelect from "./MethodSelect";
+import MethodSelect from "./MethodSelect2";
 import { Grid } from "@mui/material/index";
 import BottomButton from "./BottomButton";
+import { Collapse } from "@mui/material/index";
+import CautionBox from "./CautionBox";
+import EasyPayment from "./EasyPayment";
 const MainChargeBlock = styled.div`
   background-color: #F3F6F9;
   height: 100vh;
@@ -36,6 +39,17 @@ const MainChargeBlock = styled.div`
     margin-top: 10px;
   }
 
+  .easy-payment-container{
+    display: flex;
+    justify-content:center;
+    margin-top: 25px;
+    .method-title {
+      width:460px;
+      font-family: 'Noto Sans Serif KR';
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+  }
   .caution-container {
     display: flex;
     justify-content:center;
@@ -60,11 +74,12 @@ const MainCharge = ({
   totalAmount,
   handleChangeAmount,
   onChange,
-  anchorEl,
   handleClose,
   handleClick,
   handleMethod,
-  itemRef
+  itemRef,
+  checked,
+  handleCheck
 }) => {
   return(
     <MainChargeBlock>
@@ -102,26 +117,37 @@ const MainCharge = ({
           height="277px"
         >
           <MethodSelect
-            anchorEl={anchorEl}
+            // anchorEl={anchorEl}
             handleClose={handleClose}
             handleClick={handleClick}
             handleMethod={handleMethod}
             itemRef={itemRef}
+            handleCheck={handleCheck}
           />
         </GradientBox>
       </div>
-      <div className="caution-container">
-        <Grid container
-          sx={{width:"460px" }}
+      <div
+        className="easy-payment-container"
+      >
+        <Collapse
+          in={checked}
+          sx={{
+            width:"460px"
+          }}
         >
-          <Grid className="caution-title" item sx={4}>
-            유의사항
-          </Grid>
-          <Grid item sx={8}>
-            <div>체크카드는 할부기간을 설정할 수 없습니다.</div>
-            <div className="caution-link">카드사별 혜택 보기</div>
-          </Grid>
-        </Grid>
+          <GradientBox
+            backgroundColor="white"
+            width="460px"
+            height="85px"
+        >
+          <EasyPayment
+            handleMethod={handleMethod}
+          />
+        </GradientBox>
+        </Collapse>
+      </div>
+      <div className="caution-container">
+        <CautionBox/>
       </div>
       <div className="bottom-button">
         <BottomButton/>

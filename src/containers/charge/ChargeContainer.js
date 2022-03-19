@@ -1,34 +1,41 @@
 import React from "react";
 import { useEffect, useRef } from "react";
 import MainCharge from "../../components/charge/MainCharge"
-import { initializeCharge, changeAmount, changeAnchor, changeInput } from "../../modules/charge";
+import { initializeCharge, changeAmount, changeAnchor, changeInput, changeCheck } from "../../modules/charge";
 import { useDispatch, useSelector } from "react-redux";
 
 const ChargeContainer = () => {
   const dispatch = useDispatch();
-  const { prevBalance, userId, totalAmount, anchorEl } = useSelector(({charge}) => ({
+  const { prevBalance, userId, totalAmount, checked } = useSelector(({charge}) => ({
     prevBalance: charge.prevBalance,
     userId: charge.userId,
     totalAmount: charge.totalAmount,
-    anchorEl: charge.anchorEl
+    checked: charge.checked
   }));
 
   const itemRef = useRef();
 
   const handleClose = () => {
     console.log('handleClose');
-    dispatch(changeAnchor(null));
+    // dispatch(changeAnchor(null));
   }
 
   const handleClick = (e) => {
     console.log('handleClick');
     console.log(e.currentTarget);
-    dispatch(changeAnchor(e.currentTarget));
+    // dispatch(changeAnchor(e.currentTarget));
+  }
+
+  const handleCheck = () => {
+    dispatch(changeCheck());
   }
 
   const handleMethod = (method) => {
+    console.log(window.innerHeight);
     if(method === "EASY_PAYMENT"){
+      dispatch(changeCheck());
       return;
+
     }
 
     console.log(method);    
@@ -59,11 +66,13 @@ const ChargeContainer = () => {
       totalAmount={totalAmount}
       handleChangeAmount={handleChangeAmount}
       onChange={onChange}
-      anchorEl={anchorEl}
+      // anchorEl={anchorEl}
+      checked={checked}
       handleClose={handleClose}
       handleClick={handleClick}
       handleMethod={handleMethod}
       itemRef={itemRef}
+      handleCheck={handleCheck}
     />
   );
 }
