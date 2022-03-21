@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import GradientBox from '../common/GradientBox'
-import PairButtons from '../common/PairButtons'
-import TermBox from './TermBox'
+import styled from 'styled-components';
+import GradientBox from '../common/GradientBox';
+import PairButtons from '../common/PairButtons';
+import TermBox from './TermBox';
 const TermBlock = styled.div`
   background-color: rgba(50, 50, 50, 0.6);
   height: 100vh;
@@ -12,9 +12,9 @@ const TermBlock = styled.div`
   .term-container {
     height: 100%;
   }
-`
+`;
 
-const MainTerm = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms }) => {
+const MainTerm = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to }) => {
   return (
     <TermBlock>
       <GradientBox width='440px' height='452px'>
@@ -24,11 +24,12 @@ const MainTerm = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms }) => 
             handleTerm={handleTerm}
             isCompletelyAgreed={isCompletelyAgreed}
             handleAllTerms={handleAllTerms}
+            to={to}
           />
         </div>
       </GradientBox>
     </TermBlock>
-  )
-}
+  );
+};
 
-export default MainTerm
+export default MainTerm;

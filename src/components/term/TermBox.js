@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/index'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/index'
-import PairButtons from '../common/PairButtons'
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/index';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/index';
+import PairButtons from './PairButtons';
 const TermBoxBlock = styled.div`
   margin: 0px 20px 0px 20px;
   display: flex;
@@ -32,13 +32,13 @@ const TermBoxBlock = styled.div`
       text-decoration: underline;
     }
   }
-`
+`;
 
 const TermListItemBlock = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 15px 0px;
-`
+`;
 
 const TermListItem = ({ idx, content, checked, handleTerm }) => {
   return (
@@ -53,10 +53,10 @@ const TermListItem = ({ idx, content, checked, handleTerm }) => {
       </div>
       <span className='term-detail'>보기</span>
     </TermListItemBlock>
-  )
-}
+  );
+};
 
-const TermBox = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms }) => {
+const TermBox = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to }) => {
   return (
     <TermBoxBlock>
       <div className='terms'>
@@ -81,9 +81,9 @@ const TermBox = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms }) => {
           ))}
         </div>
       </div>
-      <PairButtons possible={isCompletelyAgreed} />
+      <PairButtons possible={isCompletelyAgreed} to={to} />
     </TermBoxBlock>
-  )
-}
+  );
+};
 
-export default TermBox
+export default TermBox;

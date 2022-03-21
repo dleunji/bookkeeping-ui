@@ -1,9 +1,6 @@
+import CardContainer from '../containers/card/CardContainer';
 const CardPage = () => {
-  return (
-    <>
-    충전
-    </>
-  );
-}
+  return <CardContainer />;
+};
 
 export default CardPage;
