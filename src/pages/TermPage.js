@@ -1,9 +1,7 @@
+import TermContainer from '../containers/term/TermContainer';
+
 const TermPage = () => {
-  return (
-    <>
-    충전
-    </>
-  );
-}
+	return <TermContainer />;
+};
 
 export default TermPage;

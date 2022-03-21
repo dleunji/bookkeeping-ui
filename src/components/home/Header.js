@@ -32,9 +32,9 @@ const Wrapper = styled(Responsive)`
 			color: inherit;
 		}
 		.nav-bar {
-      a {
-        text-decoration-line: none;
-      }
+			a {
+				text-decoration-line: none;
+			}
 			font-size: 0.8em;
 			display: flex;
 			width: 15rem;
@@ -57,22 +57,22 @@ const Spacer = styled.div`
 	height: 4rem;
 `;
 const tabs = [
-  {
-    name: '내역',
-    link: '/journal'
-  }, 
-  {
-    name: '기입',
-    link: '/entry'
-  }, 
-  {
-    name: '통계',
-    link: '/statistics'
-  },
-  {
-    name:'자산',
-    link:'/info'
-  },
+	{
+		name: '내역',
+		link: '/journal',
+	},
+	{
+		name: '기입',
+		link: '/entry',
+	},
+	{
+		name: '통계',
+		link: '/statistics',
+	},
+	{
+		name: '자산',
+		link: '/info',
+	},
 ];
 
 const Header = ({ user, onChangeNavTab, navTab }) => {
@@ -93,27 +93,30 @@ const Header = ({ user, onChangeNavTab, navTab }) => {
 							{user && (
 								<div className="nav-bar">
 									{tabs.map((tab, idx) => (
-                    <Link to={tab.link} key={idx}>
-                      <div
-                        className={navTab === idx ? 'active' : ''}
-                        onClick={() => onChangeNavTab(idx)}
-                      >
-                        {tab.name}
-                      </div>
-                    </Link>
+										<Link to={tab.link} key={idx}>
+											<div
+												className={navTab === idx ? 'active' : ''}
+												onClick={() => onChangeNavTab(idx)}
+											>
+												{tab.name}
+											</div>
+										</Link>
 									))}
-                  <div
-                    onClick={() => {
-                      window.open('/charge', '충전','width=530,height=860,location=no,status=no,scrollbars=yes');
-                      // 팝업창에서 사용해야하는 데이터 전달
-                      // 일정 기간 충전하지 않으면 자동으로 만료되도록 sessionStorage 사용
-                      sessionStorage.setItem("userId", user.userId);
-                      sessionStorage.setItem("prevBalance", user.balance);
-
-                    }}
-                  >
-                    충전
-                  </div>
+									<div
+										onClick={() => {
+											window.open(
+												'/charge',
+												'충전',
+												'width=530,height=770,location=no,status=no,scrollbars=yes'
+											);
+											// 팝업창에서 사용해야하는 데이터 전달
+											// 일정 기간 충전하지 않으면 자동으로 만료되도록 sessionStorage 사용
+											sessionStorage.setItem('userId', user.userId);
+											sessionStorage.setItem('prevBalance', user.balance);
+										}}
+									>
+										충전
+									</div>
 								</div>
 							)}
 						</div>

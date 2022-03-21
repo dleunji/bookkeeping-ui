@@ -30,9 +30,9 @@ const ContentBlock = styled(Responsive)`
 	.MuiList-root {
 		height: 13rem;
 		overflow: auto;
-    .MuiListItem-root {
-      background-color: #f3f6f9;
-    }
+		.MuiListItem-root {
+			background-color: #f3f6f9;
+		}
 	}
 	.MuiListItemText-root {
 		padding-left: 0px;
@@ -47,7 +47,7 @@ const ContentBlock = styled(Responsive)`
 	.MuiTableRow-root {
 		.MuiTableCell-root {
 			&:first-child {
-				background-color:  #f3f6f9;
+				background-color: #f3f6f9;
 			}
 		}
 	}
@@ -81,11 +81,13 @@ const MainEntry = ({
 					<TableBody>
 						<TableRow>
 							<TableCell
-                align="center"
-                sx={{
-                  width: '4rem'
-                }}
-              >날짜</TableCell>
+								align="center"
+								sx={{
+									width: '4rem',
+								}}
+							>
+								날짜
+							</TableCell>
 							<TableCell>
 								<LocalizationProvider dateAdapter={AdapterDateFns}>
 									<DatePicker
@@ -96,18 +98,15 @@ const MainEntry = ({
 										renderInput={(params) => (
 											<TextField {...params} size="small" />
 										)}
-                    showTodayButton={true}
-                    showToolBar={true}
+										showTodayButton={true}
+										showToolBar={true}
 										shouldDisableDate={isFuture}
-
 									/>
 								</LocalizationProvider>
 							</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell
-                align="center"
-              >적요</TableCell>
+							<TableCell align="center">적요</TableCell>
 							<TableCell>
 								<TextField
 									value={entry.entrySummary}
@@ -118,9 +117,7 @@ const MainEntry = ({
 							</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell
-                align="center"
-              >차변</TableCell>
+							<TableCell align="center">차변</TableCell>
 							<TableCell>
 								<DebtorSector
 									entry={entry}
@@ -131,9 +128,7 @@ const MainEntry = ({
 							</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell
-                align="center"
-              >대변</TableCell>
+							<TableCell align="center">대변</TableCell>
 							<TableCell>
 								<CreditorSector
 									entry={entry}

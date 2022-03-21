@@ -6,7 +6,8 @@ import { HomePage,
   InfoPage,
   ChargePage,
   CardPage,
-  TermPage
+  TermPage,
+  ChargeErrorPage
 } from './pages/index';
 import { Routes, Route } from 'react-router-dom';
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/info" element={<InfoPage/>}/>
         <Route exact path="/card" element={<CardPage/>}/>
         <Route exact path="/term" element={<TermPage/>}/>
+        <Route exact path="/error" element={<ChargeErrorPage/>}/>
       </Routes>
     </>
   );

@@ -7,6 +7,7 @@ import InfoPage from "./InfoPage";
 import ChargePage from "./ChargePage";
 import CardPage from "./CardPage";
 import TermPage from "./TermPage";
+import ChargeErrorPage from "./ChargeErrorPage";
 export {EntryPage, 
   HomePage, 
   JournalPage, 
@@ -15,5 +16,6 @@ export {EntryPage,
   InfoPage, 
   ChargePage,
   CardPage,
-  TermPage
+  TermPage,
+  ChargeErrorPage
 };
