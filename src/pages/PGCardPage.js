@@ -1,7 +1,7 @@
-import PGCardContainer from '../containers/pg-card/PGCardContainer';
+import PGCardContainer from '../containers/pgCard/PGCardContainer';
 
 const PGCardPage = () => {
-	return <PGCardContainer />;
+  return <PGCardContainer />;
 };
 
 export default PGCardPage;

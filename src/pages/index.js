@@ -9,16 +9,18 @@ import CardPage from './CardPage';
 import TermPage from './TermPage';
 import ChargeErrorPage from './ChargeErrorPage';
 import PGCardPage from './PGCardPage';
+import OrdinaryPage from './OrdinaryPage';
 export {
-	EntryPage,
-	HomePage,
-	JournalPage,
-	StatisticsPage,
-	UserListPage,
-	InfoPage,
-	ChargePage,
-	CardPage,
-	TermPage,
-	ChargeErrorPage,
-	PGCardPage,
+  EntryPage,
+  HomePage,
+  JournalPage,
+  StatisticsPage,
+  UserListPage,
+  InfoPage,
+  ChargePage,
+  CardPage,
+  TermPage,
+  ChargeErrorPage,
+  PGCardPage,
+  OrdinaryPage,
 };

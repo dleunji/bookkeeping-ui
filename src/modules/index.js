@@ -11,6 +11,7 @@ import card from './card';
 import complete from './complete';
 import payAgree from './payAgree';
 import pgCard from './pgCard';
+import ordinary from './ordinary';
 
 const rootReducer = combineReducers({
 	home,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
 	complete,
 	payAgree,
 	pgCard,
+	ordinary,
 });
 
 export default rootReducer;
