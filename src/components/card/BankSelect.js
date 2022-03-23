@@ -44,7 +44,7 @@ const banks = [
   },
 ];
 
-const BankSelect = ({ handleCard, selectedCard, selectedMonth, handlePopup, totalAmount }) => {
+const BankSelect = ({ handleCard, selectedCard, handlePopup, totalAmount, handleBack }) => {
   return (
     <BankSelectBlock>
       <div className='bank-select-block'>
@@ -68,10 +68,9 @@ const BankSelect = ({ handleCard, selectedCard, selectedMonth, handlePopup, tota
           height='50px'
           width='160px'
           possible={selectedCard}
-          selectedMonth={selectedMonth}
-          selectedCard={selectedCard}
           handlePopup={handlePopup}
           totalAmount={totalAmount}
+          handleBack={handleBack}
         />
       </div>
     </BankSelectBlock>

@@ -41,13 +41,16 @@ const CardContainer = () => {
     dispatch(changeCard(card));
   };
 
+  const handleBack = () => {
+    navigate(-2);
+  };
+
   const handlePopup = () => {
     sessionStorage.setItem('card', selectedCard);
     sessionStorage.setItem('installMonth', selectedMonth);
     sessionStorage.setItem('totalAmount', totalAmount);
     // PG사로 연결
     // 현재 메인 결제창에 겹치지 않게 오픈
-
     window.open(
       '/pg-card/index',
       '카드 결제',
@@ -93,6 +96,7 @@ const CardContainer = () => {
       selectedCard={selectedCard}
       infoVisibility={infoVisibility}
       handlePopup={handlePopup}
+      handleBack={handleBack}
     />
   );
 };

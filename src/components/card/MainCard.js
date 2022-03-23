@@ -54,6 +54,7 @@ const MainCard = ({
   selectedCard,
   infoVisibility,
   handlePopup,
+  handleBack,
 }) => {
   return (
     <MainCardBlock>
@@ -82,9 +83,9 @@ const MainCard = ({
                 <BankSelect
                   handleCard={handleCard}
                   selectedCard={selectedCard}
-                  selectedMonth={selectedMonth}
                   handlePopup={handlePopup}
                   totalAmount={totalAmount}
+                  handleBack={handleBack}
                 />
               </div>
             </GradientBox>

@@ -15,12 +15,9 @@ const PairButtons = ({
   width,
   height,
   marginBottom,
-  navigate,
   marginSide,
-  selectedMonth,
-  selectedCard,
-  totalAmount,
   handlePopup,
+  handleBack,
 }) => {
   return (
     <PairButtonBlock marginBottom={marginBottom} marginSide={marginSide}>
@@ -29,11 +26,7 @@ const PairButtons = ({
         height={height}
         backgroundColor='#C5C5C5'
         color='#323232'
-        onClick={() => {
-          // 뒤로 가기
-          // 약관 동의는 건너뛰기
-          navigate(-2);
-        }}
+        onClick={handleBack}
       >
         뒤로
       </StyledButton>
