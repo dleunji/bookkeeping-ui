@@ -9,9 +9,9 @@ import {
 	changePossible,
 } from '../../modules/charge';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const ChargeContainer = () => {
-	const dispatch = useDispatch();
 	const {
 		prevBalance,
 		userId,
@@ -27,6 +27,8 @@ const ChargeContainer = () => {
 		selectedMethod: charge.selectedMethod,
 		possible: charge.possible,
 	}));
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const handleCheck = () => {
 		dispatch(changeCheck());
@@ -62,6 +64,16 @@ const ChargeContainer = () => {
 		dispatch(changeInput({ name, value }));
 	};
 
+	// 간편결제의 경우 별도의 약관 동의 필요 없음
+	const goEasyPayment = () => {
+		// 메인 충전창은 로딩 화면으로 진입
+		// state는 kakao에서
+		console.log(selectedMethod);
+		if (selectedMethod === 'KAKAO') {
+			// 카카오 삭제
+		}
+	};
+
 	useEffect(() => {
 		const prevBalance = sessionStorage.getItem('prevBalance');
 		const userId = sessionStorage.getItem('userId');
@@ -95,6 +107,7 @@ const ChargeContainer = () => {
 			handleCheck={handleCheck}
 			selectedMethod={selectedMethod}
 			possible={possible}
+			goEasyPayment={goEasyPayment}
 		/>
 	);
 };

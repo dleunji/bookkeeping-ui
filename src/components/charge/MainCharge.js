@@ -77,6 +77,7 @@ const MainCharge = ({
 	handleCheck,
 	selectedMethod,
 	possible,
+	goEasyPayment,
 }) => {
 	return (
 		<MainChargeBlock>
@@ -126,9 +127,13 @@ const MainCharge = ({
 				<CautionBox />
 			</div>
 			<div className="bottom-button">
-				<Link to="/term">
-					<BottomButton possible={possible} />
-				</Link>
+				{selectedMethod === 'TOSS' ? (
+					<BottomButton possible={possible} onClick={() => goEasyPayment()} />
+				) : (
+					<Link to="/term">
+						<BottomButton possible={possible} />
+					</Link>
+				)}
 			</div>
 		</MainChargeBlock>
 	);

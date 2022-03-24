@@ -10,17 +10,29 @@ import TermPage from './TermPage';
 import ChargeErrorPage from './ChargeErrorPage';
 import PGCardPage from './PGCardPage';
 import OrdinaryPage from './OrdinaryPage';
+import PGVirtualAccountPage from './PGVirtualAccountPage';
+import VirtualAccountPage from './VirtualAccountPage';
+import AccountTransferPage from './AccountTransferPage';
+import PGAccountTransferPage from './PGAccountTransferPage';
+import RegisteredAccountPage from './RegisteredAccountPage';
+import PhonePage from './PhonePage';
 export {
-  EntryPage,
-  HomePage,
-  JournalPage,
-  StatisticsPage,
-  UserListPage,
-  InfoPage,
-  ChargePage,
-  CardPage,
-  TermPage,
-  ChargeErrorPage,
-  PGCardPage,
-  OrdinaryPage,
+	EntryPage,
+	HomePage,
+	JournalPage,
+	StatisticsPage,
+	UserListPage,
+	InfoPage,
+	ChargePage,
+	CardPage,
+	TermPage,
+	ChargeErrorPage,
+	PGCardPage,
+	OrdinaryPage,
+	PGVirtualAccountPage,
+	VirtualAccountPage,
+	AccountTransferPage,
+	PGAccountTransferPage,
+	RegisteredAccountPage,
+	PhonePage,
 };

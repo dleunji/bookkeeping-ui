@@ -4,6 +4,7 @@ import MethodBox from './MethodBox';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/index';
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons/index';
+import QRBox from './QRBox';
 const TabBlock = styled.div`
   margin-top: 10px;
   display: flex;
@@ -64,7 +65,7 @@ const TabBlock = styled.div`
     font-size: 40px;
   }
 `;
-const MethodTab = ({ activeTab, handleTab }) => {
+const MethodTab = ({ activeTab, handleTab, installMonth, totalAmount, timeLimit, openerWindow, qrButton , handleQrButton, handleTimer }) => {
   return (
     <TabBlock>
       <Grid container className='tab-container'>
@@ -87,8 +88,20 @@ const MethodTab = ({ activeTab, handleTab }) => {
         <div className='inner-container'>
           <div className='method-boxes'>
             {activeTab === 0 ? (
-              <MethodBox />
-            ) : (
+              qrButton
+              ? <MethodBox >
+                  <div 										
+                    style={{width:'100%', display:'flex', justifyContent:'space-around'}}
+                    onClick={handleQrButton} 
+                  >
+                    <div>
+                      <img src={`${process.env.PUBLIC_URL}/images/qr.png`} style={{width:'40px', height:'40px'}} />
+                    </div>
+                    <div id='hi' className="no-card">QR 인증</div>
+                  </div>
+							  </MethodBox>
+							: <QRBox totalAmount={totalAmount} installMonth={installMonth} timeLimit={timeLimit} openerWindow={openerWindow} handleQrButton={handleQrButton} handleTimer={handleTimer}/>
+              ) : (
               <MethodBox>
                 <Link to='/pg-card/ordinary'>
                   <div className='no-card'>

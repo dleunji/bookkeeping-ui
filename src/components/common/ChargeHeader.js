@@ -19,12 +19,12 @@ const ChargeHeaderBlock = styled.div`
 		}
 	}
 `;
-const ChargeHeader = () => {
+const ChargeHeader = ({ text }) => {
 	return (
 		<ChargeHeaderBlock size="30px">
 			<div className="nexto">
 				<img src={`${process.env.PUBLIC_URL}/images/capital_3d.png`} />
-				<span>넥토 충전</span>
+				<span>{text || '넥토 충전'}</span>
 			</div>
 		</ChargeHeaderBlock>
 	);

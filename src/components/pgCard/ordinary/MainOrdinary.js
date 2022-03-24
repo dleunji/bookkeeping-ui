@@ -5,9 +5,6 @@ import {
 	Stepper,
 } from '../../../../node_modules/@mui/material/index';
 import GradientBox from '../../common/GradientBox';
-import CardInfo from './CardInfo';
-import InputTable1 from './InputTable1';
-import PairButtons from './PairButtons';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';

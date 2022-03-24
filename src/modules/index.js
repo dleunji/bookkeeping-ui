@@ -12,7 +12,10 @@ import complete from './complete';
 import payAgree from './payAgree';
 import pgCard from './pgCard';
 import ordinary from './ordinary';
-
+import registeredAccount from './registeredAccount';
+import virtualAccount from './virtualAccount';
+import pgVirtualAccount from './pgVirtualAccount';
+import pgAccountTransfer from './pgAccountTransfer';
 const rootReducer = combineReducers({
 	home,
 	auth,
@@ -27,6 +30,10 @@ const rootReducer = combineReducers({
 	payAgree,
 	pgCard,
 	ordinary,
+	virtualAccount,
+	pgVirtualAccount,
+	pgAccountTransfer,
+	registeredAccount,
 });
 
 export default rootReducer;

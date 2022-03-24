@@ -1,7 +1,6 @@
 import ErrorContainer from '../containers/error/ErrorContainer';
-
 const ChargeErrorPage = () => {
-  return <ErrorContainer />;
+	return <ErrorContainer />;
 };
 
 export default ChargeErrorPage;

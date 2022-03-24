@@ -1,6 +1,7 @@
 import CardContainer from '../containers/card/CardContainer';
+
 const CardPage = () => {
-  return <CardContainer />;
+	return <CardContainer />;
 };
 
 export default CardPage;

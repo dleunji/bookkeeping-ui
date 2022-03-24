@@ -18,13 +18,21 @@ const MainPGCardBlock = styled.div`
 	}
 `;
 
-const MainPGCard = ({ selectedCard, installMonth, handleTab, activeTab }) => {
+const MainPGCard = ({ selectedCard, installMonth, handleTab, activeTab, qrButton, totalAmount, timeLimit, handleQrButton, handleTimer }) => {
 	return (
 		<MainPGCardBlock>
 			<div className="method-selection-container">
 				<GradientBox backgroundColor="white" width="450px" height="480px">
 					<Banner />
-					<MethodTab activeTab={activeTab} handleTab={handleTab} />
+					<MethodTab 
+						activeTab={activeTab} 
+						handleTab={handleTab} 
+						handleQrButton={handleQrButton}
+						handleTimer={handleTimer}
+						totalAmount={totalAmount}
+						timeLimit={timeLimit}
+						installMonth={installMonth}
+						qrButton={qrButton}/>
 				</GradientBox>
 			</div>
 		</MainPGCardBlock>
