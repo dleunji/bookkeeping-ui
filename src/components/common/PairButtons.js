@@ -20,6 +20,8 @@ const PairButtons = ({
   marginSide,
   handleNext,
   handleCancel,
+  leftText,
+  rightText,
 }) => {
   return (
     <PairButtonBlock marginBottom={marginBottom} marginSide={marginSide} marginTop={marginTop}>
@@ -30,7 +32,7 @@ const PairButtons = ({
         color='#323232'
         onClick={handleCancel}
       >
-        취소
+        {leftText || '뒤로'}
       </StyledButton>
       <ConditionalStyledButton
         width={width}
@@ -40,7 +42,7 @@ const PairButtons = ({
         possible={possible}
         onClick={handleNext}
       >
-        다음
+        {rightText || '다음'}
       </ConditionalStyledButton>
     </PairButtonBlock>
   );

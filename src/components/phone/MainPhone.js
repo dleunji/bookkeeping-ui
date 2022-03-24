@@ -36,6 +36,8 @@ const MainPhone = ({ totalAmount }) => {
               marginSide='40px'
               height='50px'
               width='160px'
+              leftText='취소'
+              rightText='결제'
               // possible={possible}
               // handleCancel={handleCancel}
               // handleNext={handleNext}
