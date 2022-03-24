@@ -28,8 +28,24 @@ const PhoneContainer = () => {
   };
 
   const handleInput = ({ name, idx, value }) => {
-    console.log(name, idx, value);
-    dispatch(changeInput({ name, idx, value }));
+    switch (name) {
+      case 'phoneNum':
+        if (idx === 0 && value.length < 4) {
+          dispatch(changeInput({ name, idx, value }));
+        } else if (idx > 0 && value.length < 5) {
+          dispatch(changeInput({ name, idx, value }));
+        }
+        break;
+      case 'socialNum':
+        if (idx === 0 && value.length < 7) {
+          dispatch(changeInput({ name, idx, value }));
+        } else if (idx === 1 && value.length < 7) {
+          dispatch(changeInput({ name, idx, value }));
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   const handleStatus = status => {
@@ -37,7 +53,12 @@ const PhoneContainer = () => {
   };
 
   const handlePassword = e => {
-    dispatch(changePassword(e.target.value));
+    const { value } = e.target;
+    // 6자리 고정
+    if (value.length > 6) {
+      return;
+    }
+    dispatch(changePassword(value));
   };
   return (
     <MainPhone

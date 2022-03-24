@@ -33,6 +33,9 @@ const PhoneInfoBlock = styled.div`
   .MuiTypography-root {
     font-size: 14px;
   }
+  .carriers {
+    display: flex;
+  }
 `;
 
 const CarrierBox = styled.div`
@@ -132,7 +135,7 @@ const PhoneInfo = ({
         <tbody>
           <tr>
             <td>통신사</td>
-            <td>
+            <td className='carriers'>
               <CarrierSelect value={mainCarrier} name='mainCarrier' onChange={handleCarrier}>
                 {carriers.map(c => (
                   <option key={c.key} value={c.key}>
