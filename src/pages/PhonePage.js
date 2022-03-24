@@ -1,5 +1,7 @@
+import PhoneContainer from '../containers/PhoneContainer';
+
 const PhonePage = () => {
-	return <></>;
+  return <PhoneContainer />;
 };
 
 export default PhonePage;

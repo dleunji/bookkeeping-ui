@@ -7,7 +7,7 @@ const EasyPaymentBlock = styled.div`
   height: 100%;
   .selected {
     background-color: rgba(25, 118, 210, 0.4) !important;
-    border-radius: 6px 0 0 6px;
+    border-radius: 6px;
   }
   .method {
     cursor: pointer;

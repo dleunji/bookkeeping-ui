@@ -28,18 +28,8 @@ const MethodSelectBlock = styled.div`
     padding: 20px 0px;
     position: relative;
     cursor: pointer;
-    &.upper-left {
-      border-radius: 6px 0 0 0;
-    }
-    &.upper-right {
-      border-radius: 0 6px 0 0;
-    }
-    &.lower-left {
-      border-radius: 0 0 0 6px;
-    }
-    &.lower-right {
-      border-radius: 0 0 6px 0;
-    }
+    border-radius: 6px;
+    
     &:hover {
       background-color: #E5E5E5;
     }
@@ -82,7 +72,7 @@ const methods = [
     value: 'REGISTERED_ACCOUNT',
   },
   {
-    name: '일괄 정산',
+    name: '후불 결제',
     icon: faCalendarDays,
     alertContent: '신규',
     value: 'POST_PAYMENT',
@@ -147,8 +137,6 @@ const MethodSelect = ({
         {methods.slice(0, 4).map((method, idx) => (
           <div
             className={`method ${selectedMethod === method.value ? 'selected' : ''} 
-            ${idx === 0 ? 'upper-left' : ''} 
-            ${idx === 3 ? 'upper-right' : ''}
             `}
             key={idx}
             onClick={() => handleMethod(method.value)}
@@ -165,9 +153,7 @@ const MethodSelect = ({
           <div
             key={idx}
             onClick={() => handleMethod(methods[4 + idx].value)}
-            className={`method ${selectedMethod === method.value ? 'selected' : ''}
-            ${idx === 0 ? 'lower-left' : ''}
-            ${idx === 3 ? 'lower-right' : ''}`}
+            className={`method ${selectedMethod === method.value ? 'selected' : ''}`}
           >
             {method.alertContent && <div className='badge'>{method?.alertContent}</div>}
             <FontAwesomeIcon className='method-icon' icon={method.icon} />
