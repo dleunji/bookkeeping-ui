@@ -21,7 +21,15 @@ const MainBlock = styled.div`
   }
 `;
 
-const MainPhone = ({ totalAmount }) => {
+const MainPhone = ({
+  totalAmount,
+  phone,
+  handleAuthentication,
+  handleInput,
+  handleStatus,
+  handlePassword,
+  handleCarrier,
+}) => {
   return (
     <MainBlock>
       <ChargeHeader />
@@ -29,7 +37,14 @@ const MainPhone = ({ totalAmount }) => {
         <div className='gradient-box'>
           <GradientBox width='460px' height='600px'>
             <ChargeInfo totalAmount={totalAmount} />
-            <PhoneInfo />
+            <PhoneInfo
+              phone={phone}
+              handleAuthentication={handleAuthentication}
+              handleInput={handleInput}
+              handleStatus={handleStatus}
+              handlePassword={handlePassword}
+              handleCarrier={handleCarrier}
+            />
             <PairButtons
               marginTop='180px'
               marginBottom='30px'

@@ -16,24 +16,26 @@ import registeredAccount from './registeredAccount';
 import virtualAccount from './virtualAccount';
 import pgVirtualAccount from './pgVirtualAccount';
 import pgAccountTransfer from './pgAccountTransfer';
+import phone from './phone';
 const rootReducer = combineReducers({
-	home,
-	auth,
-	entry,
-	journal,
-	statistics,
-	charge,
-	term,
-	error,
-	card,
-	complete,
-	payAgree,
-	pgCard,
-	ordinary,
-	virtualAccount,
-	pgVirtualAccount,
-	pgAccountTransfer,
-	registeredAccount,
+  home,
+  auth,
+  entry,
+  journal,
+  statistics,
+  charge,
+  term,
+  error,
+  card,
+  complete,
+  payAgree,
+  pgCard,
+  ordinary,
+  virtualAccount,
+  pgVirtualAccount,
+  pgAccountTransfer,
+  registeredAccount,
+  phone,
 });
 
 export default rootReducer;

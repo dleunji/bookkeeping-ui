@@ -84,10 +84,48 @@ const StyledInput = styled.input`
   }
 `;
 
-const carriers = ['SKT', 'KT', 'LG U+'];
-const cheapCarriers = ['헬로모바일', 'KCT', 'SK7Mobile'];
+const carriers = [
+  {
+    key: 'SKT',
+    value: 'SKT',
+  },
+  {
+    key: 'KT',
+    value: 'KT',
+  },
+  {
+    key: 'LG U+',
+    value: 'LG U+',
+  },
+  {
+    key: 'CHEAP',
+    value: '알뜰폰',
+  },
+];
+const cheapCarriers = [
+  {
+    key: 'HELLO',
+    value: '헬로모바일',
+  },
+  {
+    key: 'KCT',
+    value: 'KCT',
+  },
+  {
+    key: 'SK7',
+    value: 'SK7Mobile',
+  },
+];
 
-const PhoneInfo = ({ selected }) => {
+const PhoneInfo = ({
+  phone,
+  handleAuthentication,
+  handleInput,
+  handleStatus,
+  handlePassword,
+  handleCarrier,
+}) => {
+  const { mainCarrier, subCarrier, auth, status, phoneNum, socialNum, password } = phone;
   return (
     <PhoneInfoBlock>
       <table>
@@ -95,28 +133,29 @@ const PhoneInfo = ({ selected }) => {
           <tr>
             <td>통신사</td>
             <td>
-              <CarrierSelect className={`${selected ? 'selected' : ''}`} readOnly value=''>
+              <CarrierSelect value={mainCarrier} name='mainCarrier' onChange={handleCarrier}>
                 {carriers.map(c => (
-                  <option key={c} value={c}>
-                    {c}
+                  <option key={c.key} value={c.key}>
+                    {c.value}
                   </option>
                 ))}
               </CarrierSelect>
-              {/* <CarrierSelect className={`${selected ? 'selected' : ''}`} readOnly value=''>
-                {cheapCarriers.map(c => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </CarrierSelect> */}
+              {mainCarrier === 'CHEAP' && (
+                <CarrierSelect value={subCarrier} name='subCarrier' onChange={handleCarrier}>
+                  {cheapCarriers.map(c => (
+                    <option key={c.key} value={c.key}>
+                      {c.value}
+                    </option>
+                  ))}
+                </CarrierSelect>
+              )}
             </td>
           </tr>
           <tr>
             <td>인증 방식</td>
             <td>
               <FormControl>
-                {/* <FormLabel id='demo-row-radio-buttons-group-label'>인증 수단</FormLabel> */}
-                <RadioGroup row>
+                <RadioGroup row value={auth} onChange={handleAuthentication}>
                   <FormControlLabel value='sms' control={<Radio size='small' />} label='SMS인증' />
                   <FormControlLabel
                     value='password'
@@ -130,22 +169,37 @@ const PhoneInfo = ({ selected }) => {
           <tr>
             <td>전화 번호</td>
             <td>
-              <StyledInput />
-              <StyledInput />
-              <StyledInput />
+              <StyledInput
+                value={phoneNum[0]}
+                onChange={e => handleInput({ name: 'phoneNum', idx: 0, value: e.target.value })}
+              />
+              <StyledInput
+                value={phoneNum[1]}
+                onChange={e => handleInput({ name: 'phoneNum', idx: 1, value: e.target.value })}
+              />
+              <StyledInput
+                value={phoneNum[2]}
+                onChange={e => handleInput({ name: 'phoneNum', idx: 2, value: e.target.value })}
+              />
             </td>
           </tr>
           <tr>
             <td>주민등록번호</td>
             <td>
-              <StyledInput />
-              <StyledInput />
+              <StyledInput
+                value={socialNum[0]}
+                onChange={e => handleInput({ name: 'socialNum', idx: 0, value: e.target.value })}
+              />
+              <StyledInput
+                value={socialNum[1]}
+                onChange={e => handleInput({ name: 'socialNum', idx: 1, value: e.target.value })}
+              />
             </td>
           </tr>
           <tr>
             <td>인증번호</td>
             <td>
-              <StyledInput />
+              <StyledInput value={password} onChange={handlePassword} />
               <StyledButton
                 width='100px'
                 height='35px'
