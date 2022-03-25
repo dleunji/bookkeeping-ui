@@ -56,7 +56,7 @@ const TermContainer = () => {
             checked: false,
           },
         ];
-        dispatch(initializeTo('/registered-account'));
+        dispatch(initializeTo('/registered-account/login'));
         dispatch(initializeTerms(terms));
         break;
       }
@@ -228,14 +228,6 @@ const TermContainer = () => {
       }
     }
   }, [terms]);
-
-  // useEffect(()=> {
-  //   const
-
-  //   if(to !== ''){
-
-  //   }
-  // }, [to])
 
   return (
     <MainTerm
