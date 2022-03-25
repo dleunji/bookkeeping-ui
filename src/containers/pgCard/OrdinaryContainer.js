@@ -157,6 +157,7 @@ const OrdinaryContainer = () => {
 	};
 
 	useEffect(() => {
+		const desc = installMonth > 0 ? `${installMonth}개월 할부` : '일시불';
 		if (
 			(registered && currentStep === registeredSteps.length - 1) ||
 			(!registered && currentStep === unregisteredSteps.length - 1)
@@ -181,7 +182,7 @@ const OrdinaryContainer = () => {
 							chargeMethod: '카드', // 결제 수단 이름
 							chargeMethodAmount: totalAmount, // 결제 수단 금액(가상 계좌는 '입금대기'라 출력)
 							chargeAnnounceTitle: '할부 정보', // 안내사항 제목
-							chargeAnnounceDesc: `${installMonth}개월 할부`, // 안내사항 내용
+							chargeAnnounceDesc: desc, // 안내사항 내용
 							balance: 0, // 충전 후 잔액
 							chargeLimit: 0, // 잔여 충전 한도
 						},

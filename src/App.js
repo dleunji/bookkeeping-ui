@@ -17,6 +17,9 @@ import {
 	PGAccountTransferPage,
 	RegisteredAccountPage,
 	PhonePage,
+	VoucherPage,
+	PostPaymentPage,
+	PGPostPaymentPage,
 } from './pages/index';
 import { Routes, Route } from 'react-router-dom';
 import ChargeCompletePage from './pages/ChargeCompletePage';
@@ -51,6 +54,9 @@ function App() {
 				/>
 				<Route exact path="/pg-account" element={<PGAccountTransferPage />} />
 				<Route exact path="/phone" element={<PhonePage />} />
+				<Route exact path="/voucher" element={<VoucherPage />} />
+				<Route exact path="/post-payment" element={<PostPaymentPage />} />
+				<Route exact path="/pg-post" element={<PGPostPaymentPage />} />
 			</Routes>
 		</>
 	);

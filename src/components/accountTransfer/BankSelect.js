@@ -43,7 +43,7 @@ const banks = [
 	},
 ];
 
-const BankSelect = ({ selectedCard }) => {
+const BankSelect = ({ totalAmount, selectedCard, handlePopup }) => {
 	return (
 		<BankSelectBlock>
 			<div className="bank-select-block">
@@ -51,13 +51,7 @@ const BankSelect = ({ selectedCard }) => {
 					<div
 						key={idx}
 						className={`item ${selectedCard === bank.value ? 'selected' : ''}`}
-						onClick={() => {
-							window.open(
-								'/pg-account',
-								'카드 결제',
-								'width=530.89,height=654.4,location=no,status=no,scrollbars=yes'
-							);
-						}}
+						onClick={()=>{sessionStorage.setItem('bank',bank.name); handlePopup(totalAmount)}}
 					>
 						<div className="img-container">
 							<img src={bank.url} />

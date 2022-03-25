@@ -1,5 +1,5 @@
-import { useDispatch, useSelector} from "react-redux";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import {
 	createEntry,
 	deleteEntry,
@@ -10,25 +10,25 @@ import {
 import {
 	changeLatestJournals,
 	changeTotalPages,
-  changeTab,
-  changeJournalDate,
+	changeTab,
+	changeJournalDate,
 } from '../modules/journal';
-import { changeUserInfo } from "../modules/auth";
-import { changeNavTab } from "../modules/home";
-import MainEntry from "../components/entry/MainEntry";
+import { changeUserInfo } from '../modules/auth';
+import { changeNavTab } from '../modules/home';
+import MainEntry from '../components/entry/MainEntry';
 
 const JOURNAL_BASE_URL = 'api/Journals/';
 
 const EntryContainer = () => {
-  const { user, entry, journal } = useSelector(({ entry, auth, journal }) => ({ 
-    entry: entry,
-    journal: journal,
-    user: auth.currentUser
-  }));
+	const { user, entry, journal } = useSelector(({ entry, auth, journal }) => ({
+		entry: entry,
+		journal: journal,
+		user: auth.currentUser,
+	}));
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const getLatestJournals = () => {
+	const getLatestJournals = () => {
 		if (user) {
 			try {
 				fetch(JOURNAL_BASE_URL + `latest/${user.userId}/${journal.currentPage}`)
@@ -51,64 +51,64 @@ const EntryContainer = () => {
 		}
 	};
 
-  const handleCreateEntry = (name, value) => {
-    if (value.accountId === '') {
-      alert('계정을 선택하세요');
-      return;
-    }
-    if (value.categoryId === '') {
-      alert('계정 과목을 선택하세요');
-      return;
-    }
-    if (value.amount === '') {
-      alert('금액을 입력하세요');
-      return;
-    }
-    if (name === 'debtors') {
-      if (value.accountId === 0) {
-        value = {
-          ...value,
-          sign: 1,
-        };
-      } else if (value.accountId === 1) {
-        value = {
-          ...value,
-          sign: -1,
-        };
-      } else {
-        value = {
-          ...value,
-          sign: 0,
-        };
-      }
-      dispatch(changeEntry({ name: 'activeDebtorAccount', value: '' }));
-      dispatch(changeEntry({ name: 'activeDebtorAccountTitle', value: '' }));
-      dispatch(changeEntry({ name: 'debtorAccountAmount', value: '' }));
-    } else {
-      if (value.accountId === 0) {
-        value = {
-          ...value,
-          sign: -1,
-        };
-      } else if (value.accountId === 1) {
-        value = {
-          ...value,
-          sign: 1,
-        };
-      } else {
-        value = {
-          ...value,
-          sign: 0,
-        };
-      }
-      dispatch(changeEntry({ name: 'activeCreditorAccount', value: '' }));
-      dispatch(changeEntry({ name: 'activeCreditorAccountTitle', value: '' }));
-      dispatch(changeEntry({ name: 'creditorAccountAmount', value: '' }));
-    }
-    dispatch(createEntry({ name, value }));
-  };
+	const handleCreateEntry = (name, value) => {
+		if (value.accountId === '') {
+			alert('계정을 선택하세요');
+			return;
+		}
+		if (value.categoryId === '') {
+			alert('계정 과목을 선택하세요');
+			return;
+		}
+		if (value.amount === '') {
+			alert('금액을 입력하세요');
+			return;
+		}
+		if (name === 'debtors') {
+			if (value.accountId === 0) {
+				value = {
+					...value,
+					sign: 1,
+				};
+			} else if (value.accountId === 1) {
+				value = {
+					...value,
+					sign: -1,
+				};
+			} else {
+				value = {
+					...value,
+					sign: 0,
+				};
+			}
+			dispatch(changeEntry({ name: 'activeDebtorAccount', value: '' }));
+			dispatch(changeEntry({ name: 'activeDebtorAccountTitle', value: '' }));
+			dispatch(changeEntry({ name: 'debtorAccountAmount', value: '' }));
+		} else {
+			if (value.accountId === 0) {
+				value = {
+					...value,
+					sign: -1,
+				};
+			} else if (value.accountId === 1) {
+				value = {
+					...value,
+					sign: 1,
+				};
+			} else {
+				value = {
+					...value,
+					sign: 0,
+				};
+			}
+			dispatch(changeEntry({ name: 'activeCreditorAccount', value: '' }));
+			dispatch(changeEntry({ name: 'activeCreditorAccountTitle', value: '' }));
+			dispatch(changeEntry({ name: 'creditorAccountAmount', value: '' }));
+		}
+		dispatch(createEntry({ name, value }));
+	};
 
-  const handleChangeEntry = (e) => {
+	const handleChangeEntry = (e) => {
 		const { name, value } = e.target;
 		if (name === 'activeDebtorAccount') {
 			dispatch(changeEntry({ name: 'activeDebtorAccountTitle', value: '' }));
@@ -118,7 +118,7 @@ const EntryContainer = () => {
 		}
 		dispatch(changeEntry({ name, value }));
 	};
-  const handleDeleteEntry = (name, idx) => {
+	const handleDeleteEntry = (name, idx) => {
 		dispatch(deleteEntry({ name, idx }));
 	};
 
@@ -126,7 +126,7 @@ const EntryContainer = () => {
 		dispatch(changeEntryDate(date));
 	};
 
-  const handleCreateJournal = () => {
+	const handleCreateJournal = () => {
 		const { entryDate, entrySummary, debtors, creditors } = entry;
 		const { userId, accBalance, unpaidBill, pocketBalance } = user;
 
@@ -182,7 +182,7 @@ const EntryContainer = () => {
 					if (res.ok) {
 						return res.json();
 					} else {
-						throw Error(res.json());
+						throw Error(res.status);
 					}
 				})
 				.then((data) => {
@@ -194,7 +194,7 @@ const EntryContainer = () => {
 					dispatch(changeNavTab(0));
 					dispatch(changeJournalDate(entryDate));
 					dispatch(changeUserInfo({ pocketBalance, accBalance, unpaidBill }));
-          // 최신 저널 가져와야한다.
+					// 최신 저널 가져와야한다.
 					getLatestJournals();
 				});
 		} catch (e) {
@@ -202,16 +202,16 @@ const EntryContainer = () => {
 		}
 	};
 
-  return (
-    <MainEntry
-      handleCreateEntry={handleCreateEntry}
-      handleDeleteEntry={handleDeleteEntry}
-      handleChangeEntry={handleChangeEntry}
-      handleChangeEntryDate={handleChangeEntryDate}
-      entry={entry}
-      handleCreateJournal={handleCreateJournal}
-    />
-  );
-}
+	return (
+		<MainEntry
+			handleCreateEntry={handleCreateEntry}
+			handleDeleteEntry={handleDeleteEntry}
+			handleChangeEntry={handleChangeEntry}
+			handleChangeEntryDate={handleChangeEntryDate}
+			entry={entry}
+			handleCreateJournal={handleCreateJournal}
+		/>
+	);
+};
 
 export default EntryContainer;

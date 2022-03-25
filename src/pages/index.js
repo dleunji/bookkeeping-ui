@@ -16,6 +16,9 @@ import AccountTransferPage from './AccountTransferPage';
 import PGAccountTransferPage from './PGAccountTransferPage';
 import RegisteredAccountPage from './RegisteredAccountPage';
 import PhonePage from './PhonePage';
+import VoucherPage from './VoucherPage';
+import PostPaymentPage from './PostPaymentPage';
+import PGPostPaymentPage from './PGPostPaymentPage';
 export {
 	EntryPage,
 	HomePage,
@@ -35,4 +38,7 @@ export {
 	PGAccountTransferPage,
 	RegisteredAccountPage,
 	PhonePage,
+	VoucherPage,
+	PostPaymentPage,
+	PGPostPaymentPage,
 };

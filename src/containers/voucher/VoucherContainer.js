@@ -1,28 +1,27 @@
 import React from 'react';
 import { useEffect } from 'react';
-import AccountTransfer from '../../components/accountTransfer/AccountTransfer';
+import Voucher from '../../components/voucher/Voucher';
 import { useDispatch, useSelector } from 'react-redux';
+import { changeVoucherId, changeResult, changeMessage } from '../../modules/voucher';
 import { useNavigate } from 'react-router-dom';
-import { changeResult, changeMessage } from '../../modules/accountTransfer';
 
-const AccountTransferContainer = () => {
+const VoucherContainer = () => {
 	const dispatch = useDispatch();
     const navigate = useNavigate();
-	const { totalAmount, result, message } = useSelector(({ charge,accountTransfer }) => ({
+	const { totalAmount, voucherId, message, result } = useSelector(({ charge, voucher }) => ({
 		totalAmount: charge.totalAmount,
-        result : accountTransfer.result,
-		message : accountTransfer.message,
+        voucherId: voucher.voucherId,
+        message: voucher.message,
+        result: voucher.result,
 	}));
 
-    const handlePopup =(amount) => {
-		sessionStorage.setItem('totalAmount', amount);
-		window.open(
-			'/pg-account',
-			'가상 계좌',
-			'width=530.89,height=654.4,location=no,status=no,scrollbars=yes'
-		);
+	const handleVoucherId =(e) =>{
+		dispatch(changeVoucherId(e));
+	}
 
-		const receiveMessage = (e) => {
+    useEffect(() => {
+		console.log('useEffect Error');		
+        const receiveMessage = (e) => {
 			console.log(e.data);
 			if (e.origin !== 'http://localhost:3000') return;
 			if (e.type === 'webpackInvalid') return;
@@ -35,7 +34,7 @@ const AccountTransferContainer = () => {
 			dispatch(changeMessage(JSON.stringify(data)));
 		};
 		window.addEventListener('message', receiveMessage, false);
-	}
+	}, []);
 
     useEffect(() => {
 		switch (result) {
@@ -57,11 +56,12 @@ const AccountTransferContainer = () => {
 	}, [message]);
 
 	return (
-		<AccountTransfer
-			totalAmount={totalAmount}
-            handlePopup={handlePopup}
+		<Voucher
+            totalAmount={totalAmount}
+            handleVoucherId={handleVoucherId}
+            voucherId={voucherId}
 		/>
 	);
 };
 
-export default AccountTransferContainer;
+export default VoucherContainer;

@@ -11,7 +11,7 @@ const AccountTransferBlock = styled.div`
     background-color:  #f3f6f9;    
     font-family: 'AppleSDGothicNeoM';
     color: #323232;
-    height: 699px;
+    height: 769px;
 
     .container {
 		display: flex;
@@ -66,7 +66,7 @@ const banks = [
 ];
 
 
-const AccountTransfer = ({totalAmount}) => {    
+const AccountTransfer = ({totalAmount, handlePopup}) => {    
     return (
         <AccountTransferBlock>
             <ChargeHeader />
@@ -91,7 +91,7 @@ const AccountTransfer = ({totalAmount}) => {
                     width="460px"
                     height="380px"
                 >
-                   <BankSelect/>
+                   <BankSelect handlePopup={handlePopup} totalAmount={totalAmount}/>
                 </GradientBox>    
             </div>        
         </AccountTransferBlock>

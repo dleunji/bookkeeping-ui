@@ -65,7 +65,7 @@ const TabBlock = styled.div`
     font-size: 40px;
   }
 `;
-const MethodTab = ({ activeTab, handleTab, installMonth, totalAmount, timeLimit, openerWindow, qrButton , handleQrButton, handleTimer }) => {
+const MethodTab = ({ activeTab, handleTab, installMonth, totalAmount, timeLimit, openerWindow, qrButton , handleQrButton, handleTimer, startTimer, stopTimer }) => {
   return (
     <TabBlock>
       <Grid container className='tab-container'>
@@ -90,17 +90,22 @@ const MethodTab = ({ activeTab, handleTab, installMonth, totalAmount, timeLimit,
             {activeTab === 0 ? (
               qrButton
               ? <MethodBox >
-                  <div 										
-                    style={{width:'100%', display:'flex', justifyContent:'space-around'}}
-                    onClick={handleQrButton} 
-                  >
+                  <div style={{width:'100%', display:'flex', justifyContent:'space-around'}} onClick={handleQrButton} >
                     <div>
                       <img src={`${process.env.PUBLIC_URL}/images/qr.png`} style={{width:'40px', height:'40px'}} />
                     </div>
                     <div id='hi' className="no-card">QR 인증</div>
                   </div>
 							  </MethodBox>
-							: <QRBox totalAmount={totalAmount} installMonth={installMonth} timeLimit={timeLimit} openerWindow={openerWindow} handleQrButton={handleQrButton} handleTimer={handleTimer}/>
+							: <QRBox 
+                  startTimer = {startTimer}
+                  stopTimer = {stopTimer}
+                  totalAmount={totalAmount} 
+                  installMonth={installMonth} 
+                  timeLimit={timeLimit} 
+                  openerWindow={openerWindow} 
+                  handleQrButton={handleQrButton} 
+                  handleTimer={handleTimer}/>
               ) : (
               <MethodBox>
                 <Link to='/pg-card/ordinary'>

@@ -34,12 +34,32 @@ const creditorCategory = [
 			categoryId: 1002,
 			categoryName: '예금',
 		},
+		{
+			categoryId: 1003,
+			categoryName: '넥토머니',
+		},
+		{
+			categoryId: 1004,
+			categoryName: '상품권',
+		},
+		{
+			categoryId: 1005,
+			categoryName: '연결 계좌',
+		},
 	],
 	[
 		{
 			categoryId: 2001,
 			categoryName: '카드 대금',
-		}
+		},
+		{
+			categoryId: 2002,
+			categoryName: '휴대폰 대금',
+		},
+		{
+			categoryId: 2003,
+			categoryName: '후불결제 대금',
+		},
 	],
 	[
 		{

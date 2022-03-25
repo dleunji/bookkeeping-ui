@@ -59,7 +59,7 @@ const RegisteredAccountContainer = () => {
 				const result = {
 					chargeAmount: totalAmount,
 					chargeDesc: '',
-					chargeMethod: '넥토 머니',
+					chargeMethod: 'REGISTERED_ACCOUNT',
 					chargeMethodAmount: totalAmount,
 					chargeAnnounceTitle: '',
 					chargeAnnounceDesc: '',

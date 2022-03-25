@@ -16,26 +16,32 @@ import registeredAccount from './registeredAccount';
 import virtualAccount from './virtualAccount';
 import pgVirtualAccount from './pgVirtualAccount';
 import pgAccountTransfer from './pgAccountTransfer';
+import accountTransfer from './accountTransfer';
+import voucher from './voucher';
 import phone from './phone';
+import postPayment from './postPayment';
 const rootReducer = combineReducers({
-  home,
-  auth,
-  entry,
-  journal,
-  statistics,
-  charge,
-  term,
-  error,
-  card,
-  complete,
-  payAgree,
-  pgCard,
-  ordinary,
-  virtualAccount,
-  pgVirtualAccount,
-  pgAccountTransfer,
-  registeredAccount,
-  phone,
+	home,
+	auth,
+	entry,
+	journal,
+	statistics,
+	charge,
+	term,
+	error,
+	card,
+	complete,
+	payAgree,
+	pgCard,
+	ordinary,
+	virtualAccount,
+	pgVirtualAccount,
+	accountTransfer,
+	pgAccountTransfer,
+	registeredAccount,
+	voucher,
+	phone,
+	postPayment,
 });
 
 export default rootReducer;

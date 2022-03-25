@@ -1,6 +1,6 @@
-import { useDispatch, useSelector} from "react-redux";
-import { useEffect } from "react";
-import MainJournal from "../components/journal/MainJournal";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import MainJournal from '../components/journal/MainJournal';
 import {
 	changeTab,
 	changeJournalDate,
@@ -17,12 +17,12 @@ import getDate from 'date-fns/getDate';
 const JOURNAL_BASE_URL = 'api/Journals/';
 
 const JournalContainer = () => {
-  const { user, journal } = useSelector(({ journal, auth }) => ({ 
-    journal: journal,
-    user: auth.currentUser, 
-  }));
+	const { user, journal } = useSelector(({ journal, auth }) => ({
+		journal: journal,
+		user: auth.currentUser,
+	}));
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	const onChangeTab = (e, tab) => {
 		dispatch(changeTab(tab));
@@ -65,7 +65,9 @@ const JournalContainer = () => {
 	const getLatestJournals = async () => {
 		if (user) {
 			try {
-				await fetch(JOURNAL_BASE_URL + `latest/${user.userId}/${journal.currentPage}`)
+				await fetch(
+					JOURNAL_BASE_URL + `latest/${user.userId}/${journal.currentPage}`
+				)
 					.then((res) => {
 						if (res.ok) {
 							return res.json();
@@ -100,13 +102,12 @@ const JournalContainer = () => {
 						if (res.ok) {
 							return res.json();
 						} else {
-							throw Error(res.json());
+							throw Error(res.status);
 						}
 					})
 					.then((data) => {
 						console.log(data);
 						const { totalRowsCount, totalPages, journals } = data;
-						console.log('확인');
 						dispatch(changeTotalPages({ totalPages, totalRowsCount }));
 						dispatch(changeDailyJournals(journals));
 					});
@@ -120,7 +121,7 @@ const JournalContainer = () => {
 		dispatch(changePage(page));
 	};
 
-  useEffect(() => {
+	useEffect(() => {
 		dispatch(changePage(1));
 		switch (journal.tab) {
 			case 0:
@@ -143,25 +144,25 @@ const JournalContainer = () => {
 		}
 	}, [journal.currentPage]);
 
-  useEffect(() => {
+	useEffect(() => {
 		if (journal.journalDate !== null && journal.tab == 1) {
 			getDailyJournals(0);
 		}
 	}, [journal.journalDate]);
 
-  useEffect(() => {
+	useEffect(() => {
 		getLatestJournals();
 	}, [user]);
 
-  return (
-    <MainJournal
-      journal={journal}
-      onChangeTab={onChangeTab}
-      handleChangeJournalDate={handleChangeJournalDate}
-      handleDeleteJournal={handleDeleteJournal}
-      onChangePage={onChangePage}
-    />
-  );
-}
+	return (
+		<MainJournal
+			journal={journal}
+			onChangeTab={onChangeTab}
+			handleChangeJournalDate={handleChangeJournalDate}
+			handleDeleteJournal={handleDeleteJournal}
+			onChangePage={onChangePage}
+		/>
+	);
+};
 
 export default JournalContainer;

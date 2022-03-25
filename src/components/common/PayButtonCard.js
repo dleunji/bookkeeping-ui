@@ -23,11 +23,7 @@ const PayButtonCard = ({possible, handleClick, handleChange, PGHandleClick}) => 
             </div>          
             
             <div style={{width :'100%', display:'flex', justifyContent:'center'}}>
-
-              {/* <Link to={possible ? '/complete' : '#'} className={possible ? '' : 'disabled'}> */}
-                {/* BigButton 의 handleClick 은 onClick 에 전달할 함수를 의미 */}
-                <BigButton handleClick={ PGHandleClick ? PGHandleClick : handleClick} title={'결제하기'} backgroundColor='#1976D2' color='white' possible={possible} />        
-              {/* </Link> */}
+                <BigButton handleClick={ PGHandleClick ? PGHandleClick : handleClick} title={'결제하기'} backgroundColor='#1976D2' color='white' possible={possible} />
             </div>
 
           </div>

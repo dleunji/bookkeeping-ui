@@ -85,8 +85,8 @@ const PGVirtualAccount = ({totalAmount, method, handleMethod}) => {
                 state : 'SUCCESS',
                 data : {
                     chargeAmount : totalAmount,                                 // 총 충전 금액
-                    chargeDesc: '가상 계좌',                                    // 충전 정보
-                    chargeMethod : method,                                     // 결제 수단 이름
+                    chargeDesc: '입금 예정',                                    // 충전 정보
+                    chargeMethod : 'virtual_account',                          // 결제 수단 이름
                     chargeMethodAmount : totalAmount,                          // 결제 수단 금액(가상 계좌는 '입금대기'라 출력)
                     chargeAnnounceTitle: '안내사항',                            // 안내사항 제목
                     chargeAnnounceDesc:  `입금일로부터 3일 후에 충전됩니다.`,     // 안내사항 내용 

@@ -119,10 +119,9 @@ const UserListContainer = () => {
 		}
 	});
 
-	// useEffect(() => {
-	// 	fetchUserList();
-	// }, []);
-  
+	useEffect(() => {
+		fetchUserList();
+	}, []);
 
 	return (
 		<UserList
