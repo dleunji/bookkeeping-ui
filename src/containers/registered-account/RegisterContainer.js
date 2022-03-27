@@ -58,7 +58,8 @@ const RegisterContainer = () => {
     dispatch(changeRegister({ name: 'accountAddress', value }));
   };
 
-  const handleAccoutAuth = value => {
+  const handleAccountAuth = value => {
+    console.log(value);
     if (value.length > 3) {
       return;
     }
@@ -149,7 +150,7 @@ const RegisterContainer = () => {
       handleBack={handleBack}
       handleNext={handleNext}
       handleAccountAddress={handleAccountAddress}
-      handleAccountAuth={handleAccoutAuth}
+      handleAccountAuth={handleAccountAuth}
       handleButton={handleButton}
       handleEraser={handleEraser}
       handleAllEraser={handleAllEraser}

@@ -65,7 +65,7 @@ const RegisteredAccountContainer = () => {
           chargeMethodAmount: totalAmount,
           chargeAnnounceTitle: '',
           chargeAnnounceDesc: '',
-          balance: prevBalance + totalAmount,
+          balance: parseInt(prevBalance) + totalAmount,
           chargeLimit: 0,
         };
         navigate('/complete', { state: JSON.stringify(result) });

@@ -152,10 +152,11 @@ const MainRegister = ({
               <AccountInput
                 value={register.accountAddress}
                 handleAccountAddress={handleAccountAddress}
+                selectedBank={register.selectedBank}
               />
             )}
             {step === 3 && (
-              <AccountAuth handleAccountAuth={handleAccountAuth} value={register.AccountAuth} />
+              <AccountAuth handleAccountAuth={handleAccountAuth} value={register.accountAuth} />
             )}
             {step === 4 && (
               <ARSAgree activeArsButton={register.activeArsButton} requestARS={requestARS} />
@@ -183,7 +184,7 @@ const MainRegister = ({
           {step === 3 && (
             <PairButtons
               marginTop='20px'
-              possible={register.accountAddress}
+              possible={register.accountAuth.length === 3}
               handleCancel={handleBack}
               handleNext={handleNext}
             />
@@ -191,7 +192,7 @@ const MainRegister = ({
           {step === 4 && (
             <PairButtons
               marginTop='20px'
-              possible={register.accountAddress}
+              possible={!register.activeArsButton}
               handleCancel={handleBack}
               handleNext={handleNext}
             />
@@ -208,28 +209,6 @@ const MainRegister = ({
           )}
         </div>
       </div>
-      {/* <div className='container'>
-        <ChargeHeader text='넥토 연결 계좌' />
-        <div className='bank'>
-          <GradientBox width='410px' height='88px'>
-            <AccountAddress />
-          </GradientBox>
-        </div>
-        <div className='password'>
-          <GradientBox width='410px' height='88px'>
-            <AccountPassword password={password} wrong={wrong} />
-          </GradientBox>
-        </div>
-        <div className='alert'>
-          <div>암호가 기억이 안나요.</div>
-        </div>
-      </div>
-      <KeyBoard
-        shuffledArr={shuffledArr}
-        handleButton={handleButton}
-        handleEraser={handleEraser}
-        handleAllEraser={handleAllEraser}
-      /> */}
     </MainBlock>
   );
 };

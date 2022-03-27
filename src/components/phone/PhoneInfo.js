@@ -36,6 +36,10 @@ const PhoneInfoBlock = styled.div`
   .carriers {
     display: flex;
   }
+  .social-password {
+    font-size: 25px;
+    text-align: center;
+  }
 `;
 
 const CarrierBox = styled.div`
@@ -70,7 +74,7 @@ const CarrierSelect = styled.select`
   }
 `;
 const StyledInput = styled.input`
-  width: 60px;
+  width: ${props => props.width || '60px'};
   height: 25px;
   border: 1px solid #c5c5c5;
   border-radius: 3px;
@@ -220,6 +224,7 @@ const PhoneInfo = ({
               />
               <StyledInput
                 value={socialNum[1]}
+                width='10px'
                 onChange={e =>
                   handleInput({
                     name: 'socialNum',
@@ -228,16 +233,25 @@ const PhoneInfo = ({
                   })
                 }
               />
+              <span className='social-password'>······</span>
             </td>
           </tr>
           <tr>
-            <td>인증번호</td>
             <td>
-              <StyledInput
-                value={password}
-                onChange={handlePassword}
-                disabled={auth === 'SMS' && (status === 'NONE' || status === 'SUCCESS_SMS_AUTH')}
-              />
+              {auth === 'SMS' && '인증번호'}
+              {auth === 'PASSWORD' && '비밀번호'}
+            </td>
+            <td>
+              {auth === 'SMS' && (
+                <StyledInput
+                  value={password}
+                  onChange={handlePassword}
+                  disabled={status === 'NONE' || status === 'SUCCESS_SMS_AUTH'}
+                />
+              )}
+              {auth === 'PASSWORD' && (
+                <StyledInput value={password} onChange={handlePassword} type='password' />
+              )}
               {auth === 'SMS' && (
                 <StyledButton
                   width='100px'

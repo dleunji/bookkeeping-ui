@@ -12,13 +12,14 @@ import { useLocation } from 'react-router-dom';
 const _ = require('lodash');
 const REGISTERED_BASE_URL = '/api/RegisteredAccounts/';
 const LoginContainer = () => {
-  const { nums, password, registered, wrong, totalAmount } = useSelector(
+  const { nums, password, registered, wrong, totalAmount, registeredAccount } = useSelector(
     ({ registeredAccount, charge }) => ({
       nums: registeredAccount.nums,
       password: registeredAccount.password,
       registered: registeredAccount.registeredAccount,
       wrong: registeredAccount.wrong,
       totalAmount: charge.totalAmount,
+      registeredAccount: registeredAccount.registeredAccount,
     })
   );
   const { accountAddress, registeredAccountPassword, bank } = registered;
@@ -26,7 +27,7 @@ const LoginContainer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const prevBalance = parseInt(sessionStorage.getItem('prevBalance'));
+  const prevBalance = sessionStorage.getItem('prevBalance');
   const userId = sessionStorage.getItem('userId');
 
   const shuffleArr = () => {
@@ -70,9 +71,10 @@ const LoginContainer = () => {
           chargeMethodAmount: totalAmount,
           chargeAnnounceTitle: '',
           chargeAnnounceDesc: '',
-          balance: prevBalance + totalAmount,
+          balance: parseInt(prevBalance) + parseInt(totalAmount),
           chargeLimit: 0,
         };
+        console.log(result);
         navigate('/complete', { state: JSON.stringify(result) });
       } else {
         console.log('wrong');
@@ -117,6 +119,7 @@ const LoginContainer = () => {
       handleAllEraser={handleAllEraser}
       password={password}
       wrong={wrong}
+      registeredAccount={registeredAccount}
     />
   );
 };

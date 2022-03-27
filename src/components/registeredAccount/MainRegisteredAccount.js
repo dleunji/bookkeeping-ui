@@ -32,39 +32,41 @@ const MainBlock = styled.div`
 `;
 
 const MainRegisteredAccount = ({
-	shuffledArr,
-	handleButton,
-	handleEraser,
-	handleAllEraser,
-	password,
-	wrong,
+  shuffledArr,
+  handleButton,
+  handleEraser,
+  handleAllEraser,
+  password,
+  wrong,
+  registeredAccount,
 }) => {
-	return (
-		<MainBlock>
-			<div className="container">
-				<ChargeHeader text="넥토 연결 계좌" />
-				<div className="bank">
-					<GradientBox width="410px" height="88px">
-						<AccountAddress />
-					</GradientBox>
-				</div>
-				<div className="password">
-					<GradientBox width="410px" height="88px">
-						<AccountPassword password={password} wrong={wrong} />
-					</GradientBox>
-				</div>
-				<div className="alert">
-					<div>암호가 기억이 안나요.</div>
-				</div>
-			</div>
-			<KeyBoard
-				shuffledArr={shuffledArr}
-				handleButton={handleButton}
-				handleEraser={handleEraser}
-				handleAllEraser={handleAllEraser}
-			/>
-		</MainBlock>
-	);
+  return (
+    <MainBlock>
+      <div className='container'>
+        <ChargeHeader text='넥토 연결 계좌' />
+        <div className='bank'>
+          <GradientBox width='410px' height='88px'>
+            <AccountAddress
+              bank={registeredAccount.bank}
+              address={registeredAccount.accountAddress}
+            />
+          </GradientBox>
+        </div>
+        <div className='password'>
+          <GradientBox width='410px' height='88px'>
+            <AccountPassword password={password} wrong={wrong} />
+          </GradientBox>
+        </div>
+        <div className='alert'>비밀번호 재설정</div>
+      </div>
+      <KeyBoard
+        shuffledArr={shuffledArr}
+        handleButton={handleButton}
+        handleEraser={handleEraser}
+        handleAllEraser={handleAllEraser}
+      />
+    </MainBlock>
+  );
 };
 
 export default MainRegisteredAccount;

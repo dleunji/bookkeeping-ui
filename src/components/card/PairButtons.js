@@ -37,6 +37,7 @@ const PairButtons = ({
         color='white'
         possible={possible}
         onClick={handlePopup}
+        disabled={!possible}
       >
         결제
       </ConditionalStyledButton>

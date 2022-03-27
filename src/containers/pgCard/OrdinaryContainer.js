@@ -115,7 +115,11 @@ const OrdinaryContainer = () => {
             })
           );
           if (!isRegistered) {
-            dispatch(changeRegistered(false));
+            // 미등록된 카드
+            dispatch(changeRegistered());
+          } else {
+            // 등록된 카드
+            dispatch(changeStep(currentStep + 1));
           }
         });
     } catch (e) {
@@ -163,15 +167,7 @@ const OrdinaryContainer = () => {
       switch (currentStep) {
         case 0:
           // 카드사 확인
-          await checkRegistered();
-
-          if (card.cardId && card.isRegistered) {
-            // 2. 등록된 카드
-            dispatch(changeStep(currentStep + 1));
-          } else if (card.cardId && !card.isRegistered) {
-            // 3. 미등록된 카드로 신규 등록부터 진행
-            dispatch(changeRegistered());
-          }
+          checkRegistered();
           break;
         case 1:
           if (card.cardPassword === step2.password && card.cvc === step2.cvc) {
@@ -234,7 +230,10 @@ const OrdinaryContainer = () => {
   };
 
   const handleCancel = () => {
-    // statusCode 변경
+    if (currentStep === 0) {
+      return;
+    }
+    dispatch(changeStep(currentStep - 1));
   };
 
   useEffect(() => {
@@ -252,6 +251,7 @@ const OrdinaryContainer = () => {
       setTimeout(() => {
         clearTimeout(timer);
         const parentWindow = window.opener;
+        const prevBalance = sessionStorage.getItem('prevBalance');
         const userId = sessionStorage.getItem('userId');
         parentWindow.postMessage(
           JSON.stringify({
@@ -264,7 +264,7 @@ const OrdinaryContainer = () => {
               chargeMethodAmount: totalAmount, // 결제 수단 금액(가상 계좌는 '입금대기'라 출력)
               chargeAnnounceTitle: '할부 정보', // 안내사항 제목
               chargeAnnounceDesc: desc, // 안내사항 내용
-              balance: 0, // 충전 후 잔액
+              balance: parseInt(prevBalance) + parseInt(totalAmount), // 충전 후 잔액
               chargeLimit: 0, // 잔여 충전 한도
             },
           }),
@@ -274,6 +274,42 @@ const OrdinaryContainer = () => {
       }, 5000);
     }
   }, [statusCode]);
+
+  useEffect(() => {
+    window.addEventListener(
+      'unload',
+      event => {
+        // 표준에 따라 기본 동작 방지
+        event.preventDefault();
+        // Chrome에서는 returnValue 설정이 필요함
+        const parentWindow = window.opener;
+        const prevBalance = sessionStorage.getItem('prevBalance');
+        const userId = sessionStorage.getItem('userId');
+        parentWindow.postMessage(
+          JSON.stringify({
+            // state: 'FAIL',
+            // data: {
+            //   chargeAmount: totalAmount, // 총 충전 금액
+            //   userId,
+            //   chargeDesc: '충전 실패', // 충전 정보
+            //   chargeMethod: 'CARD', // 결제 수단 이름
+            //   chargeMethodAmount: totalAmount, // 결제 수단 금액(가상 계좌는 '입금대기'라 출력)
+            //   chargeAnnounceTitle: '할부 정보', // 안내사항 제목
+            //   chargeAnnounceDesc: '', // 안내사항 내용
+            //   balance: parseInt(prevBalance) + parseInt(totalAmount), // 충전 후 잔액
+            //   chargeLimit: 0, // 잔여 충전 한도
+            // },
+            // state: 'FAIL',
+            // data: {
+            // }
+          }),
+          'http://localhost:3000/pg-card'
+        );
+        window.close();
+      },
+      5000
+    );
+  }, []);
 
   return (
     <MainOrdinary

@@ -5,6 +5,7 @@ const CHANGE_AUTHENTICATION = 'phone/CHANGE_AUTHENTICATION';
 const CHANGE_INPUT = 'phone/CHANGE_INPUT';
 const CHANGE_PASSWORD = 'phone/CHANGE_PASSWORD';
 const CHANGE_STATUS = 'phone/CHANGE_STATUS';
+const INITIALIZE_PHONE = 'phone/INITIALIZE_PHONE';
 
 export const changeCarrier = createAction(CHANGE_CARRIER, ({ name, value }) => ({ name, value }));
 export const changeAuthentication = createAction(CHANGE_AUTHENTICATION, auth => auth);
@@ -15,6 +16,7 @@ export const changeInput = createAction(CHANGE_INPUT, ({ name, idx, value }) => 
 }));
 export const changeStatus = createAction(CHANGE_STATUS, status => status);
 export const changePassword = createAction(CHANGE_PASSWORD, value => value);
+export const initializePhone = createAction(INITIALIZE_PHONE, data => data);
 
 const initialState = {
   // 주요 통신사
@@ -31,6 +33,7 @@ const initialState = {
   socialNum: ['', ''],
   // 인증번호 혹은 주민번호
   password: '',
+  phoneInfo: {},
 };
 
 const phone = handleActions(
@@ -54,6 +57,10 @@ const phone = handleActions(
     [CHANGE_STATUS]: (state, { payload: status }) => ({
       ...state,
       status,
+    }),
+    [INITIALIZE_PHONE]: (state, { payload: data }) => ({
+      ...state,
+      phoneInfo: { ...data },
     }),
   },
   initialState

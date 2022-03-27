@@ -65,12 +65,34 @@ const ChargeContainer = () => {
     if (selectedMethod === 'KAKAO') {
       // 카카오 삭제
     }
+    if (selectedMethod === 'TOSS') {
+      // 토스
+      const tossWindow = window.open(
+        'https://pay.toss.im/payfront/demo/payments',
+        'TOSS',
+        'width=850,height=600,location=no,left=530,status=no,scrollbars=yes'
+      );
+      if (tossWindow) {
+        const result = {
+          chargeAmount: totalAmount,
+          chargeDesc: '',
+          chargeMethod: 'TOSS',
+          chargeMethodAmount: totalAmount,
+          chargeAnnounceTitle: '',
+          chargeAnnounceDesc: '',
+          balance: parseInt(prevBalance) + parseInt(totalAmount),
+          chargeLimit: 0,
+        };
+        navigate('/complete', { state: JSON.stringify(result) });
+      }
+    }
   };
 
   useEffect(() => {
     const prevBalance = sessionStorage.getItem('prevBalance');
     const userId = sessionStorage.getItem('userId');
-    dispatch(initializeCharge({ prevBalance, userId }));
+
+    https: dispatch(initializeCharge({ prevBalance, userId }));
     return dispatch(initializeCharge({ prevBalance, userId }));
   }, []);
 

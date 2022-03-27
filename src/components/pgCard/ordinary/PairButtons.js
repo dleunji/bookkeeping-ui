@@ -39,6 +39,7 @@ const PairButtons = ({
         color='white'
         possible={possible}
         onClick={handleNext}
+        disabled={!possible}
       >
         다음
       </ConditionalStyledButton>

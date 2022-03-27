@@ -30,12 +30,17 @@ const AccountAddressBlock = styled.div`
   }
 `;
 
-const AccountInput = ({ value, handleAccountAddress }) => {
+const banks = {
+  WOORI: '우리',
+  KOOKMIN: '국민',
+};
+
+const AccountInput = ({ value, handleAccountAddress, selectedBank }) => {
   return (
     <AccountAddressBlock>
       <div className='bank-container'>
         <Alert severity='info'>본인 명의의 계좌만 가능합니다.</Alert>
-        <div className='bank-title'>우리</div>
+        <div className='bank-title'>{banks[selectedBank]}</div>
         <StyledInput
           value={value}
           type='number'

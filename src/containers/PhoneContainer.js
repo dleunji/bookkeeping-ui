@@ -8,6 +8,7 @@ import {
   changeInput,
   changePassword,
   changeStatus,
+  initializePhone,
 } from '../modules/phone';
 
 const CARRIER_BASE_URL = 'api/Carriers/';
@@ -60,7 +61,7 @@ const PhoneContainer = () => {
   const handlePassword = e => {
     const { value } = e.target;
     // 6자리 고정
-    if (value.length > 6) {
+    if (auth === 'SMS' && value.length > 6) {
       return;
     }
     dispatch(changePassword(value));
@@ -79,7 +80,7 @@ const PhoneContainer = () => {
       chargeMethodAmount: totalAmount,
       chargeAnnounceTitle: '',
       chargeAnnounceDesc: '',
-      balance: prevBalance + totalAmount,
+      balance: parseInt(prevBalance) + parseInt(totalAmount),
       chargeLimit: 0,
     };
     switch (auth) {
@@ -88,57 +89,74 @@ const PhoneContainer = () => {
         // SMS 인증 실패인 경우에는 다음 버튼이 활성화되지 않으므로 실패인 경우는 고려 X
         break;
       case 'PASSWORD':
-        if (password === '111111') {
-          dispatch(changeStatus('SUCCESS_PASSWORD_AUTH'));
-          navigate('/complete', { state: JSON.stringify(result) });
-        } else {
-          dispatch(changeStatus('FAIL_PASSWORD_AUTH'));
-        }
+        fetchPhoneInfo();
         break;
+    }
+  };
+
+  const fetchPhoneInfo = async () => {
+    const phoneNums = phoneNum.join('');
+    console.log(phoneNums);
+
+    const socialNums = socialNum.join('');
+    console.log(socialNums);
+    try {
+      await fetch(
+        CARRIER_BASE_URL +
+          `${mainCarrier === 'CHEAP' ? subCarrier : mainCarrier}/${phoneNums}/${socialNums}`
+      )
+        .then(res => {
+          console.log(res.url);
+          if (res.ok) {
+            return res.json();
+          } else {
+            alert('유효하지 않은 정보입니다.');
+            throw new Error('Invalid Phone');
+          }
+        })
+        .then(data => {
+          dispatch(initializePhone(data));
+          console.log(data);
+          const savedUserId = sessionStorage.getItem('userId');
+          if (data.userId !== parseInt(savedUserId)) {
+            alert('휴대폰 명의가 본인이 아닙니다.');
+            throw new Error('Unauthorized Phone');
+          }
+          if (auth === 'SMS') {
+            dispatch(changeStatus('READY_SMS_AUTH'));
+          } else if (auth === 'PASSWORD') {
+            const prevBalance = sessionStorage.getItem('prevBalance');
+            const result = {
+              chargeAmount: totalAmount,
+              chargeDesc: '휴대폰 결제',
+              chargeMethod: 'PHONE',
+              chargeMethodAmount: totalAmount,
+              chargeAnnounceTitle: '',
+              chargeAnnounceDesc: '',
+              balance: parseInt(prevBalance) + parseInt(totalAmount),
+              chargeLimit: 0,
+            };
+            if (password === phone.phoneInfo.phonePassword) {
+              dispatch(changeStatus('SUCCESS_PASSWORD_AUTH'));
+              navigate('/complete', { state: JSON.stringify(result) });
+            } else {
+              dispatch(changeStatus('FAIL_PASSWORD_AUTH'));
+            }
+          }
+        });
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const handlePasswordButton = () => {
     switch (status) {
       case 'NONE': {
-        const phoneNums = phoneNum.join('');
-        console.log(phoneNums);
-
-        const socialNums = socialNum.join('');
-        console.log(socialNums);
-        try {
-          fetch(
-            CARRIER_BASE_URL +
-              `${mainCarrier === 'CHEAP' ? subCarrier : mainCarrier}/${phoneNums}/${socialNums}`
-          )
-            .then(res => {
-              console.log(res.url);
-              if (res.ok) {
-                return res.json();
-              } else {
-                alert('유효하지 않은 정보입니다.');
-                throw new Error('Invalid Phone');
-              }
-            })
-            .then(data => {
-              const { userId } = data;
-              const savedUserId = sessionStorage.getItem('userId');
-              if (userId !== savedUserId) {
-                alert('휴대폰 명의가 본인이 아닙니다.');
-                throw new Error('Unauthorized Phone');
-              }
-              if (auth === 'SMS') {
-                dispatch(changeStatus('READY_SMS_AUTH'));
-              } else if (auth === 'PASSWORD') {
-                dispatch(changeStatus('READY_PASSWORD_AUTH'));
-              }
-            });
-        } catch (e) {
-          console.log(e);
-        }
+        fetchPhoneInfo();
         break;
       }
       case 'POSSIBLE_SMS_AUTH': {
+        // 인증번호는 123456으로 고정
         if (password === '123456') dispatch(changeStatus('SUCCESS_SMS_AUTH'));
         else {
           dispatch(changePassword(''));
@@ -147,7 +165,8 @@ const PhoneContainer = () => {
         break;
       }
       case 'FAIL_SMS_AUTH': {
-        dispatch(changeStatus('READY_SMS_AUTH'));
+        // 실패 후 다시 시도
+        dispatch(changeStatus('NONE'));
         break;
       }
       default:
