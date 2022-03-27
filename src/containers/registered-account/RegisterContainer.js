@@ -1,27 +1,29 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainRegister from '../../components/registeredAccount/MainRegister';
-import { changePassword, changeWrong, shuffleNums } from '../../modules/registeredAccount';
+import {
+  changePassword,
+  changeRegister,
+  changeStep,
+  changeWrong,
+  shuffleNums,
+  changeArsButton,
+} from '../../modules/registeredAccount';
 import { useNavigate } from 'react-router-dom';
 const _ = require('lodash');
-
-const REGISTERED_BASE_URL = 'api/RegisteredAcounts/';
+const REGISTERED_BASE_URL = '/api/RegisteredAccounts/';
 
 const RegisterContainer = () => {
-  const { nums, password, registeredPassword, wrong, totalAmount } = useSelector(
-    ({ registeredAccount, charge }) => ({
-      nums: registeredAccount.nums,
-      password: registeredAccount.password,
-      registeredPassword: registeredAccount.registeredPassword,
-      wrong: registeredAccount.wrong,
-      totalAmount: charge.totalAmount,
-    })
-  );
+  const { register, step, nums } = useSelector(({ registeredAccount }) => ({
+    register: registeredAccount.register,
+    step: registeredAccount.step,
+    nums: registeredAccount.nums,
+  }));
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { selectedBank, accountAddress, accountAuth, password } = register;
 
-  const prevBalance = parseInt(sessionStorage.getItem('prevBalance'));
   const userId = sessionStorage.getItem('userId');
 
   const shuffleArr = () => {
@@ -29,59 +31,132 @@ const RegisterContainer = () => {
     dispatch(shuffleNums(shuffledArr));
   };
 
+  const handleCard = card => {
+    dispatch(changeRegister({ name: 'selectedBank', value: card }));
+  };
+
+  const handleNext = () => {
+    if (step === 7) {
+      navigate('/registered-account/login');
+    } else {
+      dispatch(changeStep(step + 1));
+    }
+  };
+
+  const handleBack = () => {
+    if (step === 7) {
+      window.close();
+    } else if (step > 1) {
+      dispatch(changeStep(step + 1));
+    }
+  };
+
+  const handleAccountAddress = value => {
+    if (value.length > 14) {
+      return;
+    }
+    dispatch(changeRegister({ name: 'accountAddress', value }));
+  };
+
+  const handleAccoutAuth = value => {
+    if (value.length > 3) {
+      return;
+    }
+    dispatch(changeRegister({ name: 'accountAuth', value }));
+  };
+
   const handleButton = num => {
     if (password.length === 6) {
       return;
     }
-    dispatch(changePassword(password + num.toString()));
+    dispatch(changeRegister({ name: 'password', value: password + num.toString() }));
     // input change까지
   };
-
   const handleEraser = () => {
     if (password === '') {
       return;
     }
-    dispatch(changePassword(password.slice(0, -1)));
+    dispatch(changeRegister({ name: 'password', value: password.slice(0, -1) }));
   };
 
   const handleAllEraser = () => {
     if (password === '') {
       return;
     }
-    dispatch(changePassword(''));
+    dispatch(changeRegister({ name: 'password', value: '' }));
+  };
+
+  const requestARS = () => {
+    dispatch(changeArsButton());
+  };
+
+  const registerAPI = async () => {
+    try {
+      console.log({
+        userId: userId,
+        accountAddress: accountAddress,
+        registeredAccountPassword: password,
+        bank: selectedBank,
+      });
+      await fetch(REGISTERED_BASE_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          userId: userId,
+          accountAddress: accountAddress,
+          registeredAccountPassword: password,
+          bank: selectedBank,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => {
+          console.log(res.url);
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error('등록 실패');
+          }
+        })
+        .then(data => console.log(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
   useEffect(() => {
-    if (wrong) {
-      dispatch(changeWrong(false));
+    if (step === 6) {
+      shuffleArr();
+      dispatch(changeRegister({ name: 'password', value: '' }));
+    } else if (step === 7) {
+      registerAPI();
     }
+  }, [step]);
+
+  useEffect(() => {
     if (password.length === 6) {
-      // 6자리 채워지면 자동으로 암호 매칭
-      if (registeredPassword === password) {
-        // 결제 완료
-        const result = {
-          chargeAmount: totalAmount,
-          chargeDesc: '',
-          chargeMethod: 'REGISTERED_ACCOUNT',
-          chargeMethodAmount: totalAmount,
-          chargeAnnounceTitle: '',
-          chargeAnnounceDesc: '',
-          balance: prevBalance + totalAmount,
-          chargeLimit: 0,
-        };
-        navigate('/complete', { state: JSON.stringify(result) });
-      } else {
-        console.log('wrong');
-        //비밀번호를 확인해주세요
-        dispatch(changeWrong(true));
-      }
+      dispatch(changeStep(step + 1));
     }
   }, [password]);
-
   useEffect(() => {
     // TODO: 유저의 연결 계좌 리스트 불러오기
     shuffleArr();
   }, []);
-  return <MainRegister />;
+  return (
+    <MainRegister
+      step={step}
+      register={register}
+      handleCard={handleCard}
+      handleBack={handleBack}
+      handleNext={handleNext}
+      handleAccountAddress={handleAccountAddress}
+      handleAccountAuth={handleAccoutAuth}
+      handleButton={handleButton}
+      handleEraser={handleEraser}
+      handleAllEraser={handleAllEraser}
+      shuffledArr={nums}
+      requestARS={requestARS}
+    />
+  );
 };
 
 export default RegisterContainer;

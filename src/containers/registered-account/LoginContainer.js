@@ -84,8 +84,9 @@ const LoginContainer = () => {
 
   const fetchRegisteredAccounts = async () => {
     try {
-      await fetch(`${REGISTERED_BASE_URL}${userId}`)
+      await fetch(REGISTERED_BASE_URL + userId)
         .then(res => {
+          console.log(res.url);
           if (res.status === 404) {
             throw new Error('Non-Registered User');
           } else {
