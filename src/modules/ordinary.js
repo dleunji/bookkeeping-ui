@@ -25,31 +25,37 @@ export const changeSecond = createAction(CHANGE_SECOND);
 export const changeStatusCode = createAction(CHANGE_STATUSCODE, statusCode => statusCode);
 export const initializeCard = createAction(
   INITIALIZE_CARD,
-  ({ cardId, cardAddress, cVC, validYear, validMonth, isCheck, isRegistered, cardPassword }) => ({
+  ({
     cardId,
     cardAddress,
-    cVC,
+    cvc,
     validYear,
     validMonth,
     isCheck,
     isRegistered,
     cardPassword,
+    socialNum,
+    phoneNum,
+    bank,
+  }) => ({
+    cardId,
+    cardAddress,
+    cvc,
+    validYear,
+    validMonth,
+    isCheck,
+    isRegistered,
+    cardPassword,
+    socialNum,
+    phoneNum,
+    bank,
   })
 );
 
 const initialState = {
   currentStep: 0,
   registered: true,
-  card: {
-    cardId: null,
-    cardAddress: '',
-    cVC: '',
-    validYear: '',
-    validMonth: '',
-    isCheck: '',
-    isRegistered: '',
-    phoneNum: ['', '', ''],
-  },
+  card: {},
   step1: {
     cardNum: ['', '', '', ''],
     validMonth: '1',
@@ -73,10 +79,6 @@ const initialState = {
     phoneNum1: '',
     phoneNum2: '',
     phoneNum3: '',
-  },
-  nstep3: {
-    cvc: '',
-    password: '',
   },
   second: 5,
   // 결제 상태 코드
@@ -117,12 +119,15 @@ const ordinary = handleActions(
         payload: {
           cardId,
           cardAddress,
-          cVC,
+          cvc,
           validYear,
           validMonth,
           isCheck,
           isRegistered,
           cardPassword,
+          socialNum,
+          phoneNum,
+          bank,
         },
       }
     ) => ({
@@ -131,12 +136,15 @@ const ordinary = handleActions(
         ...state.card,
         cardId,
         cardAddress,
-        cVC,
+        cvc,
         validYear,
         validMonth,
         isCheck,
         isRegistered,
         cardPassword,
+        socialNum,
+        phoneNum,
+        bank,
       },
     }),
   },

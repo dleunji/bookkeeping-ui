@@ -47,6 +47,7 @@ const OrdinaryContainer = () => {
 
   const handleInput = ({ name, value, step }) => {
     console.log(name, value, step);
+
     // CVC는 세자리의 수
     if (name === 'cvc' && value.length > 3) {
       return;
@@ -75,7 +76,7 @@ const OrdinaryContainer = () => {
     const cardAddress = step1.cardNum.join('');
     console.log(cardAddress);
     try {
-      await fetch(CARD_BASE_URL + cardAddress)
+      await fetch(CARD_BASE_URL + `${cardAddress}/${step1.validMonth}/${step1.validYear}`)
         .then(res => {
           if (res.ok) {
             return res.json();
@@ -87,24 +88,30 @@ const OrdinaryContainer = () => {
           // 카드가 유효하면 카드사에서 카드 정보 가져오기
           const {
             cardId,
-            cardPassword,
             cardAddress,
-            cVC,
+            cvc,
             validYear,
             validMonth,
             isCheck,
             isRegistered,
+            cardPassword,
+            socialNum,
+            phoneNum,
+            bank,
           } = data;
           dispatch(
             initializeCard({
               cardId,
               cardAddress,
-              cVC,
+              cvc,
               validYear,
               validMonth,
               isCheck,
               isRegistered,
               cardPassword,
+              socialNum,
+              phoneNum,
+              bank,
             })
           );
           if (!isRegistered) {
@@ -148,7 +155,7 @@ const OrdinaryContainer = () => {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     console.log(registered, currentStep);
     if (registered) {
       // 현재가 마지막 스텝인 경우
@@ -156,10 +163,9 @@ const OrdinaryContainer = () => {
       switch (currentStep) {
         case 0:
           // 카드사 확인
-          checkRegistered();
-          if (card.cardId === undefined) {
-            alert('유효한 카드를 입력해주세요');
-          } else if (card.cardId && card.isRegistered) {
+          await checkRegistered();
+
+          if (card.cardId && card.isRegistered) {
             // 2. 등록된 카드
             dispatch(changeStep(currentStep + 1));
           } else if (card.cardId && !card.isRegistered) {
@@ -168,30 +174,36 @@ const OrdinaryContainer = () => {
           }
           break;
         case 1:
-          if (card.cardPassword === step2.password) {
+          if (card.cardPassword === step2.password && card.cvc === step2.cvc) {
             dispatch(changeStep(currentStep + 1));
+            dispatch(changeStatusCode('SUCCESS'));
           } else {
             alert('잘못된 정보입니다.');
           }
-        case 2:
-          // 결제 완료
-          dispatch(changeStatusCode('SUCCESS'));
           break;
       }
     } else {
       switch (currentStep) {
         case 0:
           // 신규 등록
-          dispatch(changeStep(currentStep + 1));
+          const socialNums = nstep1.socialNum1.toString() + nstep1.socialNum2.toString();
+          console.log(socialNums);
+
+          if (socialNums === card.socialNum && card.cvc === nstep1.cvc) {
+            dispatch(changeStep(currentStep + 1));
+          } else {
+            alert('정보를 확인해주세요.');
+          }
           break;
         case 1:
-          // 비밀번호 입력
           dispatch(changeStep(currentStep + 1));
           break;
         case 2:
           // 신규 등록
-          registerCard();
-          dispatch(changeStep(currentStep + 1));
+          if (step2.cvc === card.cvc && step2.password === card.cardPassword) {
+            registerCard();
+            dispatch(changeStep(currentStep + 1));
+          } else alert('정보를 확인해주세요.');
           break;
       }
     }
@@ -200,7 +212,19 @@ const OrdinaryContainer = () => {
   const handleAuth = () => {
     switch (nstep2.authStatus) {
       case 'NONE': {
-        dispatch(changeInput({ name: 'authStatus', value: 'READY', step: 'nstep2' }));
+        const phoneNums =
+          nstep2.phoneNum1.toString() + nstep2.phoneNum2.toString() + nstep2.phoneNum3.toString();
+        console.log(phoneNums);
+        if (
+          nstep2.password.length > 5 &&
+          nstep2.password.length < 9 &&
+          phoneNums === card.phoneNum
+        ) {
+          // dispatch(changeStep(currentStep + 1));
+          dispatch(changeInput({ name: 'authStatus', value: 'READY', step: 'nstep2' }));
+        } else {
+          alert('정보를 확인해주세요.');
+        }
         break;
       }
       case 'READY': {
@@ -219,7 +243,6 @@ const OrdinaryContainer = () => {
       (registered && currentStep === registeredSteps.length - 1) ||
       (!registered && currentStep === unregisteredSteps.length - 1)
     ) {
-      console.log('타이머');
       // 1초 간격으로 카운트 다운
       const timer = setInterval(() => {
         dispatch(changeSecond());
