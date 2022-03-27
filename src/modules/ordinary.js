@@ -25,7 +25,7 @@ export const changeSecond = createAction(CHANGE_SECOND);
 export const changeStatusCode = createAction(CHANGE_STATUSCODE, statusCode => statusCode);
 export const initializeCard = createAction(
   INITIALIZE_CARD,
-  ({ cardId, cardAddress, cVC, validYear, validMonth, isCheck, isRegistered }) => ({
+  ({ cardId, cardAddress, cVC, validYear, validMonth, isCheck, isRegistered, cardPassword }) => ({
     cardId,
     cardAddress,
     cVC,
@@ -33,6 +33,7 @@ export const initializeCard = createAction(
     validMonth,
     isCheck,
     isRegistered,
+    cardPassword,
   })
 );
 
@@ -112,7 +113,18 @@ const ordinary = handleActions(
     }),
     [INITIALIZE_CARD]: (
       state,
-      { payload: { cardId, cardAddress, cVC, validYear, validMonth, isCheck, isRegistered } }
+      {
+        payload: {
+          cardId,
+          cardAddress,
+          cVC,
+          validYear,
+          validMonth,
+          isCheck,
+          isRegistered,
+          cardPassword,
+        },
+      }
     ) => ({
       ...state,
       card: {
@@ -124,6 +136,7 @@ const ordinary = handleActions(
         validMonth,
         isCheck,
         isRegistered,
+        cardPassword,
       },
     }),
   },

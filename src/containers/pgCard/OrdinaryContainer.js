@@ -14,26 +14,6 @@ const unregisteredSteps = ['신규 가입 및 약관 동의', '비밀번호 등�
 
 const CARD_BASE_URL = '/api/OrdinaryCards/';
 
-const cards = [
-  {
-    cardNum: [1111, 1111, 1111, 1111],
-    validMonth: 9,
-    validYear: 2027,
-    cvc: 123,
-    registered: false,
-    // 미등록되었으므로 아직 비밀번호는 null
-    password: null,
-  },
-  {
-    cardNum: [5480, 2058, 1692, 1772],
-    validMonth: 1,
-    validYear: 2027,
-    cvc: 444,
-    registered: true,
-    password: 'nexondd',
-  },
-];
-
 const OrdinaryContainer = () => {
   const {
     totalAmount,
@@ -105,7 +85,16 @@ const OrdinaryContainer = () => {
         })
         .then(data => {
           // 카드가 유효하면 카드사에서 카드 정보 가져오기
-          const { cardId, cardAddress, cVC, validYear, validMonth, isCheck, isRegistered } = data;
+          const {
+            cardId,
+            cardPassword,
+            cardAddress,
+            cVC,
+            validYear,
+            validMonth,
+            isCheck,
+            isRegistered,
+          } = data;
           dispatch(
             initializeCard({
               cardId,
@@ -115,6 +104,7 @@ const OrdinaryContainer = () => {
               validMonth,
               isCheck,
               isRegistered,
+              cardPassword,
             })
           );
           if (!isRegistered) {
@@ -123,6 +113,38 @@ const OrdinaryContainer = () => {
         });
     } catch (e) {
       alert('카드가 유효하지 않습니다.');
+    }
+  };
+
+  const registerCard = async () => {
+    try {
+      const cardAddress = step1.cardNum.join('');
+      console.log(cardAddress);
+      await fetch(CARD_BASE_URL + 'register', {
+        method: 'POST',
+        body: JSON.stringify({
+          address: cardAddress,
+          password: nstep2.password,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => {
+          console.log(res.url);
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error(res.status);
+          }
+        })
+        .then(data => {
+          // 카드 등록 후 결제까지
+          dispatch(changeStatusCode('SUCCESS'));
+          console.log(data);
+        });
+    } catch (e) {
+      alert('카드 등록에 실패했습니다.');
     }
   };
 
@@ -146,7 +168,7 @@ const OrdinaryContainer = () => {
           }
           break;
         case 1:
-          if (card.password === step2.password) {
+          if (card.cardPassword === step2.password) {
             dispatch(changeStep(currentStep + 1));
           } else {
             alert('잘못된 정보입니다.');
@@ -167,8 +189,8 @@ const OrdinaryContainer = () => {
           dispatch(changeStep(currentStep + 1));
           break;
         case 2:
-          // 결제 인증
-          dispatch(changeStatusCode('SUCCESS'));
+          // 신규 등록
+          registerCard();
           dispatch(changeStep(currentStep + 1));
           break;
       }
