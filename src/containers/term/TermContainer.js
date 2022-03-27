@@ -8,6 +8,7 @@ import {
   initializeTo,
 } from '../../modules/term';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const REGISTERED_ACCOUNT = 'REGISTERED_ACCOUNT';
 const POST_PAYMENT = 'POST_PAYMENT';
@@ -27,6 +28,7 @@ const TermContainer = () => {
   }));
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleTerm = idx => {
     dispatch(checkTerm(idx));
@@ -36,6 +38,9 @@ const TermContainer = () => {
     dispatch(agreeCompleteTerm());
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
   useEffect(() => {
     switch (selectedMethod) {
       case REGISTERED_ACCOUNT: {
@@ -233,6 +238,7 @@ const TermContainer = () => {
     <MainTerm
       terms={terms}
       handleTerm={handleTerm}
+      handleBack={handleBack}
       isCompletelyAgreed={isCompletelyAgreed}
       handleAllTerms={handleAllTerms}
       to={to}

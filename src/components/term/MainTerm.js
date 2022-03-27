@@ -14,7 +14,7 @@ const TermBlock = styled.div`
   }
 `;
 
-const MainTerm = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to }) => {
+const MainTerm = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to, handleBack }) => {
   return (
     <TermBlock>
       <GradientBox width='440px' height='452px'>
@@ -25,6 +25,7 @@ const MainTerm = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to })
             isCompletelyAgreed={isCompletelyAgreed}
             handleAllTerms={handleAllTerms}
             to={to}
+            handleBack={handleBack}
           />
         </div>
       </GradientBox>

@@ -56,7 +56,7 @@ const TermListItem = ({ idx, content, checked, handleTerm }) => {
   );
 };
 
-const TermBox = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to }) => {
+const TermBox = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to, handleBack }) => {
   return (
     <TermBoxBlock>
       <div className='terms'>
@@ -81,7 +81,7 @@ const TermBox = ({ terms, handleTerm, isCompletelyAgreed, handleAllTerms, to }) 
           ))}
         </div>
       </div>
-      <PairButtons possible={isCompletelyAgreed} to={to} />
+      <PairButtons handleBack={handleBack} possible={isCompletelyAgreed} to={to} />
     </TermBoxBlock>
   );
 };
